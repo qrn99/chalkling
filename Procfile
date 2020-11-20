@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* teamchalkling.chalkling.ChalklingApplication
+web: java -jar target/chalkling-0.0.1-SNAPSHOT.jar

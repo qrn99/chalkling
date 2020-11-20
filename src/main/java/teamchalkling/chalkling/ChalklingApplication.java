@@ -10,13 +10,13 @@ import org.springframework.context.annotation.Bean;
 import javax.sql.DataSource;
 
 @SpringBootApplication
-public class Main {
+public class ChalklingApplication {
 
     @Value("${spring.datasource.url}")
     private String dbUrl;
 
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+        SpringApplication.run(ChalklingApplication.class, args);
     }
 
     @Bean
