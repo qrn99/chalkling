@@ -6,3 +6,4 @@
 
 **Resources used:**
 * [gatsby-starter-default - gatsbyjs](https://github.com/gatsbyjs/gatsby-starter-default)
+* [material-ui](toggleChannels)

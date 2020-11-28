@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 // )
 
 const Message = ({author, time, message}) => (
-  <Grid>
+  <Grid item xs={12}>
     <p><b>{author} </b>{time}</p>
     <p>{message}</p>
   </Grid>
