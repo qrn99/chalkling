@@ -19,22 +19,20 @@ const useStyles = makeStyles({
 
 const Channels = () => {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    left: false,
-  });
+  const [state, setState] = React.useState(false);
 
-  const toggleChannels = (anchor, open) => (event) => {
+  const toggleChannels = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    setState({ ...state, [anchor]: open });
+    setState(open);
   }
 
-  const list = (anchor) => (
+  const list = () => (
     <div className={clsx(classes.list)}
          role="presentation"
-         onClick={toggleChannels(anchor, false)}
-         onKeyDown={toggleChannels(anchor, false)}>
+         onClick={toggleChannels(false)}
+         onKeyDown={toggleChannels(false)}>
       <List>
         {['Test1', 'Test2'].map((text) => (
           <ListItem button key={text}>
@@ -50,9 +48,9 @@ const Channels = () => {
   return (
     <div>
       <React.Fragment key={'left'}>
-        <Button onClick={toggleChannels('left', true)}>Open</Button>
-        <Drawer anchor={'left'} open={state['left']} onClose={toggleChannels('left', false)}>
-          {list('left')}
+        <Button onClick={toggleChannels(true)}>Open</Button>
+        <Drawer anchor={'left'} open={state} onClose={toggleChannels(false)}>
+          {list()}
         </Drawer>
       </React.Fragment>
     </div>
