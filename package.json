@@ -19,6 +19,7 @@
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
+    "@material-ui/core": "^4.11.1",
     "prettier": "2.1.2"
   },
   "keywords": [
