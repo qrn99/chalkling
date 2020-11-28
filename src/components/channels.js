@@ -8,50 +8,103 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from "clsx";
+import CssBaseline from "@material-ui/core/CssBaseline"
 
 // source: https://material-ui.com/components/drawers/
 
-const useStyles = makeStyles({
-  list: {
-    width: 250,
-  }
-});
+const drawerWidth = 250;
 
-const Channels = () => {
+const useStyles = makeStyles((theme) =>({
+  root: {
+    display: 'flex',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  // drawerHeader: {
+  //   display: 'flex',
+  //   alignItems: 'center',
+  //   padding: theme.spacing(0, 1),
+  //   // necessary for content to be below app bar
+  //   ...theme.mixins.toolbar,
+  //   justifyContent: 'flex-end',
+  // },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+}));
+
+const Channels = ({children}) => {
   const classes = useStyles();
   const [state, setState] = React.useState(false);
 
-  const toggleChannels = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
+  const toggleChannels = () => {
+    if (state === true){
+      setState(false);
     }
-    setState(open);
-  }
+    else {
+      setState(true);
+    }
+  };
 
-  const list = () => (
-    <div className={clsx(classes.list)}
-         role="presentation"
-         onClick={toggleChannels(false)}
-         onKeyDown={toggleChannels(false)}>
-      <List>
-        {['Test1', 'Test2'].map((text) => (
-          <ListItem button key={text}>
-            <ListItemIcon><MessageIcon /></ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-
-    </div>
-  )
+  // const list = () => (
+  //   <div>
+  //     <List>
+  //       {['Test1', 'Test2'].map((text) => (
+  //         <ListItem button key={text} className={classes.drawerPaper}>
+  //           <ListItemIcon><MessageIcon /></ListItemIcon>
+  //           <ListItemText primary={text} />
+  //         </ListItem>
+  //       ))}
+  //     </List>
+  //   </div>
+  // )
 
   return (
-    <div>
+    <div className={classes.root}>
+      <CssBaseline />
       <React.Fragment key={'left'}>
-        <Button onClick={toggleChannels(true)}>Open</Button>
-        <Drawer anchor={'left'} open={state} onClose={toggleChannels(false)}>
-          {list()}
+        <Drawer className={classes.drawer}
+                variant={"persistent"} anchor={'left'} open={state}
+                classes={{
+                  paper: classes.drawerPaper,
+                }}>
+          <div>
+            <List>
+              {['Test1', 'Test2'].map((text) => (
+                <ListItem button key={text} className={classes.drawerPaper}>
+                  <ListItemIcon><MessageIcon /></ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+          </div>
         </Drawer>
+        <main
+          className={clsx(classes.content, {
+            [classes.contentShift]: state,
+          })}
+        >
+          <Button onClick={toggleChannels}>Open</Button>
+          {children}
+        </main>
       </React.Fragment>
     </div>
   )
