@@ -5,14 +5,9 @@ import Message from "../components/message"
 import Channels from "../components/channels"
 
 const IndexPage = () => (
-  <Channels>
-  <Layout>
-    <SEO title="Home" />
-        <Message author={"hello"} time={"hello"} message={"Good morning!"}/>
-        <Message author={"hello"} time={"hello"} message={"Good morning!"}/>
-        <Message author={"hello"} time={"hello"} message={"Good morning!"}/>
-  </Layout>
-  </Channels>
+      <Layout>
+      <SEO title="Home" />
+      </Layout>
 )
 
 export default IndexPage

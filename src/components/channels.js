@@ -64,19 +64,6 @@ const Channels = ({children}) => {
     }
   };
 
-  // const list = () => (
-  //   <div>
-  //     <List>
-  //       {['Test1', 'Test2'].map((text) => (
-  //         <ListItem button key={text} className={classes.drawerPaper}>
-  //           <ListItemIcon><MessageIcon /></ListItemIcon>
-  //           <ListItemText primary={text} />
-  //         </ListItem>
-  //       ))}
-  //     </List>
-  //   </div>
-  // )
-
   return (
     <div className={classes.root}>
       <CssBaseline />
