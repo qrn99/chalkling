@@ -1,12 +1,14 @@
 import React from "react"
+
+import { Link } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import Message from "../components/message"
-import Channels from "../components/channels"
 
 const IndexPage = () => (
       <Layout>
-      <SEO title="Home" />
+        <SEO title="Home" />
+        <p><Link to={"/login"}>Login Page.</Link></p>
+        <p><Link to={"/app"}>App Page.</Link></p>
       </Layout>
 )
 
