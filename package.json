@@ -1,7 +1,7 @@
 {
-  "name": "chalklingapp",
+  "name": "chalklingwebsite",
   "private": true,
-  "description": "Chalkling app",
+  "description": "Chalkling Website",
   "version": "0.1.0",
   "author": "Jan Garong, Yining Wang and Ruo Ning (Nancy) Qiu",
   "dependencies": {
@@ -15,6 +15,7 @@
     "gatsby-transformer-sharp": "^2.6.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
+    "react-device-detect": "^1.14.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.1.0"
   },
