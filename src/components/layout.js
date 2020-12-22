@@ -11,6 +11,7 @@ import "../styles/layout.css"
 import Footer from "./footer"
 import Navbar from "./navbar"
 
+// TODO: Fix layout + navbar
 const Layout = ({ children }) => {
 
   return (
