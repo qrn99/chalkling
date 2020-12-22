@@ -1,24 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
 html {
-    background-color: #3c544c;
+    /*background-color: #3c544c;*/
     color: #FFFFFF;
     text-align: center;
-    padding: 0;
-    margin: 0;
     font-family: 'Source Sans Pro', sans-serif;
+    background-color: #3c544c;
 }
 
-/*footer {*/
-/*    padding-top: 5vh;*/
-/*    padding-bottom: 5vh;*/
-/*    background-color: #433d3c;*/
-/*    margin: 0;*/
-/*    position: absolute;*/
-/*    bottom: 0;*/
-/*    left: 0;*/
-/*    right: 0;*/
-/*}*/
+body {
+    margin: 0;
+}
 
 #page {
     position: relative;
@@ -26,15 +18,20 @@ html {
 }
 
 #content {
-    padding-bottom: 3rem;
+    padding-bottom: 5rem;
+    background-color: #3c544c;
+    color: #FFFFFF;
 }
 
 #footer {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
     margin: 0;
     height: 3rem;
+    padding-top: 2rem;
+    width: 100%;
     background-color: #433d3c;
 }
 

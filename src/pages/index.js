@@ -7,8 +7,8 @@ import { makeStyles } from "@material-ui/core/styles"
 
 const useStyles = makeStyles((theme) => ({
   front: {
-    paddingTop: '25vh',
-    paddingBottom: '25vh',
+    paddingTop: '12rem',
+    paddingBottom: '12rem',
     },
 }));
 
