@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import "../styles/blog.css"
 
 // Source: https://www.gatsbyjs.com/docs/how-to/routing/adding-markdown-pages/
 export default function Post({data}) {
@@ -11,10 +12,10 @@ export default function Post({data}) {
   return (
     <Layout>
       <SEO title={frontmatter.title} />
-      <div>
+      <div id={'post'}>
         <h1>{frontmatter.title}</h1>
-        <h2>{frontmatter.date}</h2>
-        <h3>{frontmatter.author}</h3>
+        <p>Date: {frontmatter.date}</p>
+        <p>Written by {frontmatter.author}</p>
         <div
           className="blog-post-content"
           dangerouslySetInnerHTML={{ __html: html }}
