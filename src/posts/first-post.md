@@ -1,8 +1,8 @@
 ---
+slug: "/blog/first-post"
+date: "2020-12-22"
 title: "First Post"
-date: 2020-12-22
-author: Jan Garong
-published: true
+author: "Jan Garong"
 ---
 # Hello world!
 *This is a temporary post. For now, keep all blog posts in this format while I try to figure out 
