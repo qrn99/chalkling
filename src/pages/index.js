@@ -1,5 +1,6 @@
 import React from "react"
 import Button from '@material-ui/core/Button'
+import FadeIn from 'react-fade-in'
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -11,8 +12,10 @@ export default function IndexPage() {
     <Layout>
       <SEO title="Home" />
       <div id={'front'}>
-        <h1>Welcome to Chalkling</h1>
-        <Button color="inherit" size={"large"} variant={"outlined"} disabled>Open Chalkling</Button>
+        <FadeIn delay={100}>
+          <h1>Welcome to Chalkling</h1>
+          <Button color="inherit" size={"large"} variant={"outlined"} disabled>Open Chalkling</Button>
+        </FadeIn>
       </div>
     </Layout>
   );
