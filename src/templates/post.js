@@ -25,8 +25,6 @@ export default function Post({data}) {
   )
 }
 
-// TODO: 3:34:48 PM: warning Using the global `graphql` tag is deprecated, and will not be supported in v3.
-//  3:34:48 PM: Import it instead like:  import { graphql } from 'gatsby' in file:
 export const pageQuery = graphql`
   query($slug: String!) {
     markdownRemark(frontmatter: { slug: { eq: $slug } }) {

@@ -12,8 +12,6 @@ import { useStaticQuery, graphql } from "gatsby"
 
 function SEO({ description, lang, meta, title }) {
 
-  // TODO: 3:34:48 PM: warning Using the global `graphql` tag is deprecated, and will not be supported in v3.
-  //  3:34:48 PM: Import it instead like:  import { graphql } from 'gatsby' in file:
   const { site } = useStaticQuery(
     graphql`
       query {

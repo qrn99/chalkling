@@ -1,3 +1,9 @@
-#button {
+#buttonLeft {
     margin-right: 30px;
+}
+#buttonRight {
+    margin-left: 30px;
+}
+#icons {
+    margin-left: auto;
 }
