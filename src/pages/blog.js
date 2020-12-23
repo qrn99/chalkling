@@ -3,6 +3,7 @@ import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import PostLink from "../components/post-link"
+import "../styles/blog.css"
 
 // Source: https://www.gatsbyjs.com/docs/adding-a-list-of-markdown-blog-posts/
 
@@ -17,8 +18,9 @@ const BlogPage = ({
   return (
     <Layout>
       <SEO title="Blog" />
-      <h1>Blog</h1>
-      {Posts}
+      <div id={'post'}>
+        {Posts}
+      </div>
     </Layout>);
 }
 export default BlogPage

@@ -1,14 +1,16 @@
 import React from "react"
 import { Link } from "gatsby"
+import '../styles/blog.css'
 
 // Source: https://www.gatsbyjs.com/docs/adding-a-list-of-markdown-blog-posts/
 
 const PostLink = ({ post }) => (
-  <h3>
+  <div>
     <Link to={post.frontmatter.slug}>
-      {post.frontmatter.title} by {post.frontmatter.author}
+      <h1 id={'postListTitle'}>{post.frontmatter.title}</h1>
     </Link>
-  </h3>
+    Written by {post.frontmatter.author} on {post.frontmatter.date}
+  </div>
 )
 
 export default PostLink

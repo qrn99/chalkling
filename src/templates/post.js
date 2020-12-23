@@ -14,8 +14,7 @@ export default function Post({data}) {
       <SEO title={frontmatter.title} />
       <div id={'post'}>
         <h1>{frontmatter.title}</h1>
-        <p>Date: {frontmatter.date}</p>
-        <p>Written by {frontmatter.author}</p>
+        Author: {frontmatter.author} <span style={{marginLeft: '5px', marginRight: '5px'}}>|</span> Date: {frontmatter.date}
         <div
           className="blog-post-content"
           dangerouslySetInnerHTML={{ __html: html }}
