@@ -13,19 +13,11 @@ import Grid from '@material-ui/core/Grid'
 
 import '../styles/login.css'
 
-const Login = () => {
+const LoginForm = () => {
   const [values, setValues] = React.useState({
     password: '',
     showPassword: false,
   });
-
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
 
   return(
       <div id={'loginForm'}>
@@ -46,8 +38,8 @@ const Login = () => {
                             <InputAdornment position="end">
                               <IconButton
                                 aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword}
-                                onMouseDown={handleMouseDownPassword}
+                                onClick={() => setValues({ ...values, showPassword: !values.showPassword })}
+                                onMouseDown={(event) => event.preventDefault()}
                               >
                                 {values.showPassword ? <Visibility /> : <VisibilityOff />}
                               </IconButton>
@@ -66,4 +58,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default LoginForm;

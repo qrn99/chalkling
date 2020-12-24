@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="503ffc55-dd0b-47e2-a748-1aab9caddd0d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login-form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +77,7 @@
       <updated>1608783814710</updated>
       <workItem from="1608783816505" duration="821000" />
       <workItem from="1608786689959" duration="1815000" />
-      <workItem from="1608788933333" duration="8199000" />
+      <workItem from="1608788933333" duration="9390000" />
     </task>
     <task id="LOCAL-00001" summary="Remove gatsby from webapp">
       <created>1608787742286</created>
@@ -101,7 +100,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608793374678</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Simplify the arrow function">
+      <created>1608849699198</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1608849699198</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,6 +141,7 @@
     <MESSAGE value="Remove gatsby from webapp" />
     <MESSAGE value="Fix npm start not working" />
     <MESSAGE value="Package files in src folder" />
-    <option name="LAST_COMMIT_MESSAGE" value="Package files in src folder" />
+    <MESSAGE value="Simplify the arrow function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simplify the arrow function" />
   </component>
 </project>
