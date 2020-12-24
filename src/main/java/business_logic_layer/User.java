@@ -50,9 +50,9 @@ public class User {
     this.friendList.remove(friendID);
   }
 
-  public int isFriend(int friendID) {
+  public boolean isFriend(int friendID) {
     // 0 for not friend, 1 for is friend
-    return (friendList.indexOf(friendID) != -1)
+    return (friendList.indexOf(friendID) != -1);
   }
 
 }
