@@ -23,8 +23,8 @@ public class LoginWebAPI extends HttpServlet {
     String username = requestUrl.substring("/login/username".length());
     String password = requestUrl.substring("/login/password".length());
 
-
-    Boolean bool = LoginController.getInstance().check(username, password);
+    LoginController loginController = new LoginController();
+    Boolean bool = loginController.check(username, password);
 
     if (bool){
       // login credentials are correct
