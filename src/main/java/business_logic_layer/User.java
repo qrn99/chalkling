@@ -1,12 +1,13 @@
 package business_logic_layer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
   private String username;
   private int userID;
   private String password;
-  private ArrayList<Integer> friendList;
+  private List<Integer> friendList;
 
   private static int id_counter = 0;
 
@@ -14,7 +15,7 @@ public class User {
     this.username = username;
     this.password = password;
     this.userID = id_counter;
-    this.friendList = null;
+    this.friendList = new ArrayList<Integer>();
     id_counter ++;
   }
 
@@ -38,7 +39,7 @@ public class User {
     return userID;
   }
 
-  public ArrayList<Integer> getFriendList() {
+  public List<Integer> getFriendList() {
     return friendList;
   }
 
