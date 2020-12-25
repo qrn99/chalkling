@@ -12,12 +12,18 @@ import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 
 import '../styles/login.css'
+// import { SERVER_URL } from "./constants"
 
 const LoginForm = () => {
   const [values, setValues] = React.useState({
     password: '',
     showPassword: false,
   });
+
+  // TODO: Use for making requests.
+  // const fetchData = (event) => {
+  //     event.preventDefault()
+  // }
 
   return(
       <div id={'loginForm'}>

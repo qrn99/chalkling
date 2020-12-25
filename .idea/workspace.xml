@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="503ffc55-dd0b-47e2-a748-1aab9caddd0d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login-form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/login-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login-form.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,8 +14,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -77,7 +77,8 @@
       <updated>1608783814710</updated>
       <workItem from="1608783816505" duration="821000" />
       <workItem from="1608786689959" duration="1815000" />
-      <workItem from="1608788933333" duration="9390000" />
+      <workItem from="1608788933333" duration="10032000" />
+      <workItem from="1608877031094" duration="883000" />
     </task>
     <task id="LOCAL-00001" summary="Remove gatsby from webapp">
       <created>1608787742286</created>
@@ -107,7 +108,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608849699198</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Move all arrow functions to JSX in login-form.js">
+      <created>1608852199021</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1608852199021</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -142,6 +150,7 @@
     <MESSAGE value="Fix npm start not working" />
     <MESSAGE value="Package files in src folder" />
     <MESSAGE value="Simplify the arrow function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Simplify the arrow function" />
+    <MESSAGE value="Move all arrow functions to JSX in login-form.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="Move all arrow functions to JSX in login-form.js" />
   </component>
 </project>
