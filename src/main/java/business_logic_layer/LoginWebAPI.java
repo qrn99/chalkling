@@ -6,18 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import org.json.JSONObject;
 
 public class LoginWebAPI extends HttpServlet {
 
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    return;
-  }
-
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
     String requestUrl = request.getRequestURI();
     String username = requestUrl.substring("/login/username".length());
@@ -26,15 +21,13 @@ public class LoginWebAPI extends HttpServlet {
     LoginController loginController = new LoginController();
     Boolean bool = loginController.check(username, password);
 
-    if (bool){
-      // login credentials are correct
+    String json = "{\n";
+    json += "\"username\": " + JSONObject.quote(username) + ",\n";
+    json += "\"password\": " + JSONObject.quote(password) + ",\n";
+    json += "\"success\": " + bool + "\n";
+    json += "}";
+    response.getOutputStream().println(json);
 
-    }
-    else{
-
-    }
   }
-
-
 
 }
