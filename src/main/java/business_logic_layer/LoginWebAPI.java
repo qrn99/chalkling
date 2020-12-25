@@ -18,8 +18,10 @@ public class LoginWebAPI extends HttpServlet {
     String username = requestUrl.substring("/login/username".length());
     String password = requestUrl.substring("/login/password".length());
 
-    LoginController loginController = new LoginController();
-    Boolean bool = loginController.check(username, password);
+    UserService userService = new UserService();
+    LoginController loginController = new LoginController(userService);
+    loginController.check(username, password);
+    Boolean bool = loginController.getLoginState();
 
     String json = "{\n";
     json += "\"username\": " + JSONObject.quote(username) + ",\n";
