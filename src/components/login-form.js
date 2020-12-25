@@ -18,12 +18,16 @@ const LoginForm = () => {
   const [values, setValues] = React.useState({
     password: '',
     showPassword: false,
+      success: true
   });
 
   // TODO: Use for making requests.
-  // const fetchData = (event) => {
-  //     event.preventDefault()
-  // }
+  const fetchData = (event) => {
+      event.preventDefault()
+
+      // for now it just alternates
+      setValues({ ...values, success: !values.success })
+  }
 
   return(
       <div id={'loginForm'}>
@@ -31,15 +35,21 @@ const LoginForm = () => {
               <Paper>
                 <form noValidate autoComplete="off">
                     <Grid item xs={12} id={'loginField'}>
-                        <TextField id="standard-basic" label="Username" />
+                        <TextField error={!values.success}
+                                   id="standard-basic"
+                                   label="Username"
+                                   onChange={(event) => setValues({ ...values, ['success']: event.target.value })}
+                                   defaultValue="" />
                     </Grid>
                     <Grid item xs={12} id={'loginField'}>
-                      <FormControl>
+                      <FormControl error={!values.success}
+                                   onChange={(event) => setValues({ ...values, ['success']: event.target.value })}>
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
                           id="standard-adornment-password"
                           type={values.showPassword ? 'text' : 'password'}
                           onChange={(event) => setValues({ ...values, ['password']: event.target.value })}
+                          defaultValue=""
                           endAdornment={
                             <InputAdornment position="end">
                               <IconButton
@@ -55,7 +65,7 @@ const LoginForm = () => {
                       </FormControl>
                     </Grid>
                     <Grid item xs={12} id={'loginField'} align={'center'}>
-                      <Button variant="contained" color="inherit">Login</Button>
+                      <Button variant="contained" color="inherit" onClick={fetchData}>Login</Button>
                     </Grid>
                 </form>
               </Paper>
