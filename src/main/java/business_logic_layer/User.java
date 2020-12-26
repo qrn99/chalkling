@@ -3,9 +3,16 @@ package business_logic_layer;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "User")
 public class User {
-  private String username;
+  @Id
   private int userID;
+  private String username;
   private String password;
   private List<Integer> friendList;
 
