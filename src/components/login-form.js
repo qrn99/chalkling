@@ -2,9 +2,6 @@ import React from 'react';
 
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import FormControl from "@material-ui/core/FormControl"
-import InputLabel from "@material-ui/core/InputLabel"
-import Input from "@material-ui/core/Input"
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 
@@ -17,21 +14,20 @@ export default class LoginForm extends React.Component{
         this.state = {
             username: '',
             password: '',
-            success: true,
+            isLogin: false,
         }
     }
-    clear = () => {
-        this.setState({password: ''})
-    }
-
     // TODO: Use for making requests.
     fetchData = (event) => {
         event.preventDefault()
 
         // for now it just alternates
-        this.setState({success: !this.state.success})
-        console.log(this.state.password)
-        this.clear()
+        this.setState({isLogin: !this.state.isLogin})
+
+        // clear password if it fails
+        if (!this.state.isLogin) {
+            this.setState({password: ''})
+        }
     }
 
     render() {
@@ -40,23 +36,19 @@ export default class LoginForm extends React.Component{
                     <Paper id={'loginForm'}>
                         <form noValidate autoComplete="off">
                             <Grid item xs={12} id={'loginField'}>
-                                <TextField error={!this.state.success}
-                                           id="standard-basic"
+                                <TextField id="standard-basic"
                                            label="Username"
-                                           onChange={(event) => this.setState({success: event.target.value, username: event.target.value})}
+                                           onChange={(event) => this.setState({username: event.target.value})}
+                                           error={this.state.isLogin}
                                            value={this.state.username}/>
                             </Grid>
                             <Grid item xs={12} id={'loginField'}>
-                                <FormControl error={!this.state.success}
-                                             onChange={(event) => this.setState({success: event.target.value})}>
-                                    <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                                    <Input
-                                        id="standard-adornment-password"
-                                        type={'password'}
-                                        onChange={(event) => this.setState({password: event.target.value})}
-                                        value={this.state.password}
-                                    />
-                                </FormControl>
+                                <TextField id="standard-basic"
+                                           label="Password"
+                                           type="password"
+                                           onChange={(event) => this.setState({password: event.target.value})}
+                                           error={this.state.isLogin}
+                                           value={this.state.password}/>
                             </Grid>
                             <Grid item xs={12} id={'loginField'} align={'center'}>
                                 <Button variant="contained" color="inherit" onClick={this.fetchData}>Login</Button>
