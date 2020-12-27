@@ -7,4 +7,5 @@
 2. Run ``heroku local web`` to run the jar file on the web locally on your computer.
 
 **Resources used:**
-* [java-get-started](https://github.com/heroku/java-getting-started)
+* [java-get-started by heroku](https://github.com/heroku/java-getting-started)
+* [REST API with Spring Boot by Paul Tofunmi](https://dzone.com/articles/create-and-publish-your-rest-api-using-spring-boot)
