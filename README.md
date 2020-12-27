@@ -7,4 +7,4 @@
 2. Run ``heroku local web`` to run the jar file on the web locally on your computer.
 
 **Resources used:**
-* [Getting Started on Heroku with Java](https://github.com/heroku/java-getting-started)
+* [java-get-started](https://github.com/heroku/java-getting-started)
