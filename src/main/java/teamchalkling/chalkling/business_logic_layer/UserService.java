@@ -1,9 +1,10 @@
-package business_logic_layer;
+package teamchalkling.chalkling.business_logic_layer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
+
     private List<User> userList = new ArrayList<>();
     private User currentUser = null;
 
@@ -67,7 +68,6 @@ public class UserService {
     public boolean userExists(String username) {
         return !(getUserByUsername(username) == null);
     }
-
 
     /**
      * Verifies if username and password matches the credentials stored for that user account (if it exists)
