@@ -18,4 +18,7 @@ public abstract class DAC {
             dataSource = new HikariDataSource(config);
         }
     }
+
+    public abstract void read();
+    public abstract void write();
 }
