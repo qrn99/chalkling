@@ -1,65 +1,64 @@
-package business_logic_layer;
+package teamchalkling.chalkling.business_logic_layer;
 
-//import database_layer.UserDAC;
-import org.json.JSONObject;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.io.IOException;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+//import org.json.JSONObject;
+
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
-import java.util.Map;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+
+import java.util.concurrent.atomic.AtomicLong;
 
 
-@Controller
+@RestController
+
 public class LoginWebAPI {
-//  private final UserDAC userDAC;
 
-//  public LoginWebAPI(UserDAC userDAC){
-//    this.userDAC = userDAC;
-//  }
+  private Boolean isLogin;
 
-  @RequestMapping("/")
-  String index() {
-    return "index";
+
+  public LoginWebAPI(){
+    isLogin = new Boolean(false);
+
   }
 
-  @RequestMapping("/login")
-  String login(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
-    UserService userService = new UserService();
-    LoginController loginController = new LoginController(userService);
-    loginController.check(username, password);
-    boolean bool = loginController.getLoginState();
-
-    String json = "{\n";
-    json += "\"username\": " + JSONObject.quote(username) + ",\n";
-    json += "\"password\": " + JSONObject.quote(password) + ",\n";
-    json += "\"isLogin\": " + bool + "\n";
-    json += "}";
-
-    return json;
+  /**
+   * GET method: return current login state (false by default)
+   * @return Boolean isLogin
+   */
+  @GetMapping(value = "/")
+  public ResponseEntity index() {
+    return ResponseEntity.ok(isLogin);
   }
 
-//  @RequestMapping("/db")
-//  String db(Map<String, Object> model) {
-//    try (Connection connection = databaseLogic.getDatabase().getConnection()) {
-//      Statement stmt = connection.createStatement();
-//      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-//      stmt.executeUpdate("INSERT INTO ticks VALUES (now())");
-//      ResultSet rs = stmt.executeQuery("SELECT tick FROM ticks");
-//
-//      ArrayList<String> output = new ArrayList<String>();
-//      while (rs.next()) {
-//        output.add("Read from DB: " + rs.getTimestamp("tick"));
-//      }
-//
-//      model.put("records", output);
-//      return "db";
-//    } catch (Exception e) {
-//      model.put("message", e.getMessage());
-//      return "error";
-//    }
-//  }
+  /**
+   * GET method: return current login state
+   * @return Boolean isLogin
+   */
+  @GetMapping(value = "/get")
+  public ResponseEntity getBool() {
+    return ResponseEntity.ok(isLogin);
+  }
+
+  /**
+   * Check if username and password matches
+   * @param username username of current user
+   * @param password password of current user
+   * @return true if username and password matches
+   */
+  @GetMapping(value = "/post")
+  public ResponseEntity addToList(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
+    isLogin = new Boolean(username.equals(password));
+    return ResponseEntity.ok(isLogin);
+  }
+
 }
