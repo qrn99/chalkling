@@ -56,8 +56,7 @@ public class UserServiceTest {
         //  May want to change to assert True or False depending on this question.
         assertFalse(userService.removeFriend("user2", "user1"));
 
-        // TODO: Fix the issue
-//         assertFalse(userService.removeFriend("user1", "user3"));
+        assertFalse(userService.removeFriend("user1", "user3"));
     }
 
     @Test
