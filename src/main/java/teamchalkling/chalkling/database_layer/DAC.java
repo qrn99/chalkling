@@ -1,4 +1,4 @@
-package database_layer;
+package teamchalkling.chalkling.database_layer;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

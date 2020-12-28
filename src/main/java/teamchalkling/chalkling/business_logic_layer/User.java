@@ -1,4 +1,4 @@
-package business_logic_layer;
+package teamchalkling.chalkling.business_logic_layer;
 
 import java.util.ArrayList;
 import java.util.List;
