@@ -23,37 +23,42 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class LoginWebAPI {
 
-    private List<Boolean> boolList = new ArrayList<>();
+    private Boolean isLogin;
 
 
     public LoginWebAPI(){
-        boolList.add(Boolean.TRUE);
+        isLogin = new Boolean(false);
 
     }
 
+    /**
+     * GET method: return current login state (false by default)
+     * @return Boolean isLogin
+     */
     @GetMapping(value = "/")
     public ResponseEntity index() {
-        return ResponseEntity.ok(boolList);
+        return ResponseEntity.ok(isLogin);
     }
 
-
+    /**
+     * GET method: return current login state
+     * @return Boolean isLogin
+     */
     @GetMapping(value = "/get")
-    public ResponseEntity getBool(@RequestParam(value="id") Long id) {
-        Boolean itemToReturn = this.boolList.get(id.intValue());
-
-        return ResponseEntity.ok(itemToReturn);
-    }
-
-    @GetMapping(value = "/getlatest")
     public ResponseEntity getBool() {
-        Boolean itemToReturn = this.boolList.get(this.boolList.size()-1);
-        return ResponseEntity.ok(itemToReturn);
+        return ResponseEntity.ok(isLogin);
     }
 
+    /**
+     * Check if username and password matches
+     * @param username username of current user
+     * @param password password of current user
+     * @return true if username and password matches
+     */
     @GetMapping(value = "/post")
     public ResponseEntity addToList(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
-        boolList.add(username.equals(password));
-        return ResponseEntity.ok(boolList);
+        isLogin = new Boolean(username.equals(password));
+        return ResponseEntity.ok(isLogin);
     }
 
 }
