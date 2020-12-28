@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 
 import '../styles/login.css'
-// import { SERVER_URL } from "./constants"
+import { SERVER_URL } from "./constants"
 
 export default class LoginForm extends React.Component{
     constructor(props){
@@ -15,18 +15,36 @@ export default class LoginForm extends React.Component{
             username: '',
             password: '',
             isLogin: false,
+            error: false
         }
     }
     // TODO: Use for making requests.
     fetchData = (event) => {
         event.preventDefault()
+        fetch(SERVER_URL + "/api/login", {
+            method: "POST",
+            mode: "cors",
+            body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password,
+            }),
+        }).then(response => response.json())
+            .then(data => {
+                //To see response:
+                console.log(data)
+                this.setState({
+                    isLogin: data.isLogin
+                })
+            })
+    }
 
-        // for now it just alternates
-        this.setState({isLogin: !this.state.isLogin})
-
-        // clear password if it fails
+    updateLoginStatus = (event) => {
+        event.preventDefault()
+        this.fetchData(event)
         if (!this.state.isLogin) {
-            this.setState({password: ''})
+            this.setState({password: '', error: true})
+        } else {
+            this.setState({error: false})
         }
     }
 
@@ -39,7 +57,7 @@ export default class LoginForm extends React.Component{
                                 <TextField id="standard-basic"
                                            label="Username"
                                            onChange={(event) => this.setState({username: event.target.value})}
-                                           error={this.state.isLogin}
+                                           error={this.state.error}
                                            value={this.state.username}/>
                             </Grid>
                             <Grid item xs={12} id={'loginField'}>
@@ -47,11 +65,11 @@ export default class LoginForm extends React.Component{
                                            label="Password"
                                            type="password"
                                            onChange={(event) => this.setState({password: event.target.value})}
-                                           error={this.state.isLogin}
+                                           error={this.state.error}
                                            value={this.state.password}/>
                             </Grid>
                             <Grid item xs={12} id={'loginField'} align={'center'}>
-                                <Button variant="contained" color="inherit" onClick={this.fetchData}>Login</Button>
+                                <Button variant="contained" color="inherit" onClick={this.updateLoginStatus}>Login</Button>
                             </Grid>
                         </form>
                     </Paper>

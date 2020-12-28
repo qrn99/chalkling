@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="503ffc55-dd0b-47e2-a748-1aab9caddd0d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/login-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login-form.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,7 +79,10 @@
       <workItem from="1608786689959" duration="1815000" />
       <workItem from="1608788933333" duration="10032000" />
       <workItem from="1608877031094" duration="936000" />
-      <workItem from="1608878812979" duration="10876000" />
+      <workItem from="1608878812979" duration="11154000" />
+      <workItem from="1609025365942" duration="340000" />
+      <workItem from="1609122478149" duration="682000" />
+      <workItem from="1609184186253" duration="1811000" />
     </task>
     <task id="LOCAL-00001" summary="Remove gatsby from webapp">
       <created>1608787742286</created>
@@ -136,7 +140,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608939046072</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fix isLogin for login UI">
+      <created>1608944120008</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1608944120008</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,6 +186,7 @@
     <MESSAGE value="Add server url" />
     <MESSAGE value="Add login button that alternates between error/success." />
     <MESSAGE value="Clear password when Login button is pressed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Clear password when Login button is pressed" />
+    <MESSAGE value="Fix isLogin for login UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix isLogin for login UI" />
   </component>
 </project>
