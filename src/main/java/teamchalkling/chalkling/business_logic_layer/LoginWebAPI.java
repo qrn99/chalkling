@@ -53,11 +53,11 @@ public class LoginWebAPI {
     }
 
     /**
-     * Post method: return current login state
+     * Get method: return current login state
      * @return Boolean isLogin
      */
-    @PostMapping(value = "/api/login/get")
-    public ResponseEntity getBool() {
+    @GetMapping(value = "/api/login/get")
+    public ResponseEntity GetBool() {
         String json = "{\n";
         json += "\"isLogin\": " + isLogin + "\n";
         json += "}";
@@ -70,10 +70,14 @@ public class LoginWebAPI {
      * @param password password of current user
      * @return true if username and password matches
      */
-    @GetMapping(value = "/api/login")
+    @PostMapping(value = "/api/login")
     public ResponseEntity addToList(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
         isLogin = loginController.check(username, password);
-        return ResponseEntity.ok(isLogin);
+        String json = "{\n";
+        json += "\"isLogin\": " + isLogin + "\n";
+        json += "}";
+        return ResponseEntity.ok(json);
+//        return ResponseEntity.ok(isLogin);
     }
 
 }
