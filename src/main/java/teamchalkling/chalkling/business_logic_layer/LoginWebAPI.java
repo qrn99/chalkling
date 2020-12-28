@@ -46,16 +46,22 @@ public class LoginWebAPI {
      */
     @GetMapping(value = "/")
     public ResponseEntity index() {
-        return ResponseEntity.ok(isLogin);
+        String json = "{\n";
+        json += "\"isLogin\": " + isLogin + "\n";
+        json += "}";
+        return ResponseEntity.ok(json);
     }
 
     /**
-     * GET method: return current login state
+     * Post method: return current login state
      * @return Boolean isLogin
      */
-    @GetMapping(value = "/api/login/get")
+    @PostMapping(value = "/api/login/get")
     public ResponseEntity getBool() {
-        return ResponseEntity.ok(isLogin);
+        String json = "{\n";
+        json += "\"isLogin\": " + isLogin + "\n";
+        json += "}";
+        return ResponseEntity.ok(json);
     }
 
     /**
