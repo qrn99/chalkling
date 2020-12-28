@@ -23,11 +23,11 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class LoginWebAPI {
 
-    private List<Boolean> boolList = new ArrayList();
+    private List<Boolean> boolList = new ArrayList<>();
 
 
     public LoginWebAPI(){
-        boolList.add(new Boolean(true));
+        boolList.add(Boolean.TRUE);
 
     }
 
@@ -52,7 +52,7 @@ public class LoginWebAPI {
 
     @GetMapping(value = "/post")
     public ResponseEntity addToList(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
-        boolList.add(new Boolean(username.equals(password)));
+        boolList.add(username.equals(password));
         return ResponseEntity.ok(boolList);
     }
 

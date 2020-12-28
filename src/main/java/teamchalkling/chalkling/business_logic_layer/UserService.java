@@ -20,6 +20,7 @@ public class UserService {
      * Gets the current user's ID, that is logged in
      * @return User the User that currently logged in
      */
+    // TODO: Return user?
     public User getCurrentUser(){
         if (currentUser != null){
             return currentUser;
@@ -86,32 +87,36 @@ public class UserService {
 
     /**
      * Add friend into login user's friend list
-     * @param friendUsername  String  the username of the friend the user wants to add
-     * @return  boolean  True if add successfully, otherwise false
+     * @param   username1  String  the username of the friend the user wants to add
+     * @param   username2  String  target user to add to their friends' list
+     * @return             boolean  True if add successfully, otherwise false
      */
-    public boolean addFriend(String friendUsername){
-        User friend = getUserByUsername(friendUsername);
-        if (friend == null) return false;
-        else if (currentUser == null) return false;
-        else if (currentUser.isFriend(friend.getUserID())) return false; // already friend
+    // TODO: Should it be username or userID?
+    public boolean addFriend(String username1, String username2){
+        User user1 = getUserByUsername(username1);
+        User user2 = getUserByUsername(username2);
+        if (user1 == null || user2 == null) return false;
+        else if (user1.isFriend(user2.getUserID())) return false; // already friend
         else {
-            currentUser.addFriend(friend.getUserID());
+            user1.addFriend(user2.getUserID());
             return true;
         }
     }
 
     /**
      * Remove friend from the login user's friend list
-     * @param friendUsername  String  the username of the friend the user wants to remove
-     * @return  boolean  True if remove successfully, otherwise false
+     * @param   username1  String  the username of the friend the user wants to remove
+     * @param   username2  String  target user to remove from their friends' list
+     * @return             boolean  True if remove successfully, otherwise false
      */
-    public boolean removeFriend(String friendUsername){
-        User friend = getUserByUsername(friendUsername);
-        if (friend == null) return false;
-        else if (currentUser == null) return false;
-        else if (!currentUser.isFriend(friend.getUserID())) return false; // not friend yet
+    // TODO: Should it be username or userID?
+    public boolean removeFriend(String username1, String username2){
+        User user1 = getUserByUsername(username1);
+        User user2 = getUserByUsername(username2);
+        if (user1 == null || user2 == null) return false;
+        else if (user1.isFriend(user2.getUserID())) return false; // already friend
         else {
-            currentUser.removeFriend(friend.getUserID());
+            user1.removeFriend(user2.getUserID());
             return true;
         }
     }
