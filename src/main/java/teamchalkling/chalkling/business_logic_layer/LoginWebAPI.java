@@ -33,7 +33,6 @@ public class LoginWebAPI {
 
     public LoginWebAPI(){
         UserService userService = new UserService();
-        // TODO: change dbURL later
         UserDAC userDAC = new UserDAC(dbUrl, userService);
         LoginController loginController = new LoginController(userDAC);
         this.loginController = loginController;
@@ -54,7 +53,7 @@ public class LoginWebAPI {
      * GET method: return current login state
      * @return Boolean isLogin
      */
-    @GetMapping(value = "/get")
+    @GetMapping(value = "/api/login/get")
     public ResponseEntity getBool() {
         return ResponseEntity.ok(isLogin);
     }
@@ -65,9 +64,8 @@ public class LoginWebAPI {
      * @param password password of current user
      * @return true if username and password matches
      */
-    @GetMapping(value = "/post")
+    @GetMapping(value = "/api/login")
     public ResponseEntity addToList(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
-//        isLogin = new Boolean(username.equals(password));
         isLogin = loginController.check(username, password);
         return ResponseEntity.ok(isLogin);
     }
