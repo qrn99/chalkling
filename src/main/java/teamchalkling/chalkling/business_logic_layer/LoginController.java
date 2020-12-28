@@ -1,29 +1,32 @@
 package teamchalkling.chalkling.business_logic_layer;
 
+import teamchalkling.chalkling.database_layer.UserDAC;
+
 public class LoginController {
 
-  private boolean loginState;
-  private UserService userService;
+  private UserDAC userDAC;
 
-  public LoginController(UserService userService) {
-    this.userService = userService;
+  public LoginController(UserDAC userDAC) {
+    this.userDAC = userDAC;
   }
 
   /**
-   * Check and save login state in loginState
+   * return true if username and password are valid
    * @param username the username of the user
    * @param password the password of the user
    */
-  public void check(String username, String password) {
-    this.loginState = userService.canLogin(username, password);
+  public boolean check(String username, String password) {
+    this.readUserData();
+    boolean isLogin = userDAC.getUserService().canLogin(username, password);
+    if (isLogin) {
+      userDAC.getUserService().setCurrentUser(username);
+    }
+    return isLogin;
   }
 
-  /**
-   * Gets the current login state
-   * @return true if logged in, false if not logged in
-   */
-  public boolean getLoginState() {
-    return this.loginState;
+  private void readUserData() {
+    // read all users by UserDAC
+    this.userDAC.read();
   }
 
 }

@@ -23,4 +23,8 @@ public class UserDAC extends DAC{
     public void write(){
 
     }
+
+    public UserService getUserService() {
+        return userService;
+    }
 }

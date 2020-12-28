@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 //import org.json.JSONObject;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import teamchalkling.chalkling.database_layer.UserDAC;
 
 import java.util.ArrayList;
 
@@ -24,9 +26,17 @@ import java.util.concurrent.atomic.AtomicLong;
 public class LoginWebAPI {
 
     private Boolean isLogin;
+    private LoginController loginController;
 
+    @Value("${spring.datasource.url}")
+    private String dbUrl;
 
     public LoginWebAPI(){
+        UserService userService = new UserService();
+        // TODO: change dbURL later
+        UserDAC userDAC = new UserDAC(dbUrl, userService);
+        LoginController loginController = new LoginController(userDAC);
+        this.loginController = loginController;
         isLogin = new Boolean(false);
 
     }
@@ -57,7 +67,8 @@ public class LoginWebAPI {
      */
     @GetMapping(value = "/post")
     public ResponseEntity addToList(@RequestParam(value="username") String username, @RequestParam(value="password") String password) {
-        isLogin = new Boolean(username.equals(password));
+//        isLogin = new Boolean(username.equals(password));
+        isLogin = loginController.check(username, password);
         return ResponseEntity.ok(isLogin);
     }
 
