@@ -114,7 +114,7 @@ public class UserService {
         User user1 = getUserByUsername(username1);
         User user2 = getUserByUsername(username2);
         if (user1 == null || user2 == null) return false;
-        else if (user1.isFriend(user2.getUserID())) return false; // already friend
+        else if (!user1.isFriend(user2.getUserID())) return false; // already not friend
         else {
             user1.removeFriend(user2.getUserID());
             return true;
