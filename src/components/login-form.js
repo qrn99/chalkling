@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
+import jQuery from 'jquery'
 
 import '../styles/login.css'
 import { SERVER_URL } from "./constants"
@@ -19,30 +20,28 @@ export default class LoginForm extends React.Component{
         }
     }
 
-    fetchData = (event) => {
-        event.preventDefault()
-        fetch(SERVER_URL + "/api/login", {
-            headers: { "Content-Type": "application/json" },
+    fetchData = () => {
+        const dataBody = JSON.stringify({
+            username: this.state.username,
+            password: this.state.password,
+            isLogin: this.state.isLogin});
+        console.log(dataBody);
+        jQuery.ajax({
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
             method: "POST",
-            mode: "cors",
-            body: JSON.stringify({
-                username: this.state.username,
-                password: this.state.password,
-                isLogin: this.state.isLogin,
-            }),
-        }).then(response => response.json())
-            .then(data => {
-                //To see response:
-                console.log(data)
-                this.setState({
-                    isLogin: data.isLogin
-                })
-            })
+            mode: "no-cors",
+            url: SERVER_URL + "/api/login",
+            dataType: 'json',
+            data: dataBody
+        })
     }
 
     updateLoginStatus = (event) => {
         event.preventDefault()
-        this.fetchData(event)
+        this.fetchData()
         if (!this.state.isLogin) {
             this.setState({password: '', error: true})
         } else {
