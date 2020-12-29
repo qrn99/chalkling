@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="503ffc55-dd0b-47e2-a748-1aab9caddd0d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/login-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login-form.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,7 +49,7 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Node.js.test.js">
     <configuration name="renders learn react link" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -60,8 +63,12 @@
       </test-names>
       <method v="2" />
     </configuration>
+    <configuration name="test.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/components/test.js" working-dir="$PROJECT_DIR$/src/components">
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.test.js" />
         <item itemvalue="Jest.renders learn react link" />
       </list>
     </recent_temporary>
@@ -82,7 +89,7 @@
       <workItem from="1609025365942" duration="340000" />
       <workItem from="1609122478149" duration="682000" />
       <workItem from="1609184186253" duration="4199000" />
-      <workItem from="1609196901847" duration="637000" />
+      <workItem from="1609196901847" duration="4193000" />
     </task>
     <task id="LOCAL-00001" summary="Remove gatsby from webapp">
       <created>1608787742286</created>
@@ -154,7 +161,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609187566872</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Update json states.">
+      <created>1609205770384</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1609205770384</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,6 +209,7 @@
     <MESSAGE value="Clear password when Login button is pressed" />
     <MESSAGE value="Fix isLogin for login UI" />
     <MESSAGE value="Add REST API to login-form.js" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add REST API to login-form.js" />
+    <MESSAGE value="Update json states." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update json states." />
   </component>
 </project>

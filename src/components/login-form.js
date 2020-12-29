@@ -18,10 +18,11 @@ export default class LoginForm extends React.Component{
             error: false
         }
     }
-    // TODO: Use for making requests.
+
     fetchData = (event) => {
         event.preventDefault()
         fetch(SERVER_URL + "/api/login", {
+            headers: { "Content-Type": "application/json" },
             method: "POST",
             mode: "cors",
             body: JSON.stringify({
