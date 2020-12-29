@@ -27,6 +27,7 @@ export default class LoginForm extends React.Component{
             body: JSON.stringify({
                 username: this.state.username,
                 password: this.state.password,
+                isLogin: this.state.isLogin,
             }),
         }).then(response => response.json())
             .then(data => {
