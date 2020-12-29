@@ -8,4 +8,4 @@
 
 **Resources used:**
 * [java-get-started by heroku](https://github.com/heroku/java-getting-started)
-* [REST API with Spring Boot by Paul Tofunmi](https://dzone.com/articles/create-and-publish-your-rest-api-using-spring-boot)
+* [RestTemplate Post Request with JSON by baeldung](https://www.baeldung.com/spring-resttemplate-post-json)
