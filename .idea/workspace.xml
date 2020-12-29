@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="503ffc55-dd0b-47e2-a748-1aab9caddd0d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/constants.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/login-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login-form.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +88,7 @@
       <workItem from="1609184186253" duration="4199000" />
       <workItem from="1609196901847" duration="4288000" />
       <workItem from="1609213214986" duration="7253000" />
-      <workItem from="1609270827940" duration="2195000" />
+      <workItem from="1609270827940" duration="2748000" />
     </task>
     <task id="LOCAL-00001" summary="Remove gatsby from webapp">
       <created>1608787742286</created>
@@ -183,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609225266427</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Add debugging constants and fix POST issues when debugging.">
+      <created>1609273290018</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1609273290018</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,6 +232,7 @@
     <MESSAGE value="Update json states." />
     <MESSAGE value="Add Content-Type header" />
     <MESSAGE value="Add new headers" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add new headers" />
+    <MESSAGE value="Add debugging constants and fix POST issues when debugging." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add debugging constants and fix POST issues when debugging." />
   </component>
 </project>
