@@ -15,7 +15,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.userID = id_counter;
-        this.friendList = new ArrayList<Integer>();
+        this.friendList = new ArrayList<>();
         id_counter ++;
     }
 
@@ -79,7 +79,7 @@ public class User {
      */
     public void removeFriend(int friendID) {
         if (this.isFriend(friendID)){
-            this.friendList.remove(friendID);
+            this.friendList.remove((Integer) friendID);
         }
     }
 
@@ -89,7 +89,6 @@ public class User {
      * @return true if given user is a friend of current user
      */
     public boolean isFriend(int friendID) {
-        // 0 for not friend, 1 for is friend
         return friendList.contains(friendID);
     }
 
