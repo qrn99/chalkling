@@ -18,19 +18,17 @@ public class LoginWebAPITest {
 
 
     @Test
-    public void givenDataIsJson_whenDataIsPostedByPostForObject_thenResponseBodyIsNotNull()
-            throws IOException, JSONException {
+    public void testCorrectCredentials() throws IOException, JSONException {
+        // NOTE: It assumes user1 has a password of pass1 and exist in the database.
         String postUrl = "http://localhost:5000/api/login";
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         JSONObject loginJsonObject = new JSONObject();
-        loginJsonObject.put("username", "user2");
+        loginJsonObject.put("username", "user1");
         loginJsonObject.put("password", "pass1");
         loginJsonObject.put("isLogin", "false");
-
-
 
         HttpEntity<String> request =
                 new HttpEntity<String>(loginJsonObject.toString(), headers);
@@ -39,10 +37,35 @@ public class LoginWebAPITest {
                 restTemplate.postForObject(postUrl, request, String.class);
         JsonNode root = objectMapper.readTree(resultAsJsonStr);
 
+        assertNotNull(resultAsJsonStr);
+        assertNotNull(root);
+        assertEquals("true", root.path("isLogin").asText());
+    }
+
+    @Test
+    public void testIncorrectCredentials() throws IOException, JSONException {
+        // NOTE: It assumes user1 has a password of pass1 and exist in the database.
+        String postUrl = "http://localhost:5000/api/login";
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        JSONObject loginJsonObject = new JSONObject();
+        loginJsonObject.put("username", "user1");
+        loginJsonObject.put("password", "pass2");
+        loginJsonObject.put("isLogin", "false");
+
+        HttpEntity<String> request =
+                new HttpEntity<String>(loginJsonObject.toString(), headers);
+
+        String resultAsJsonStr =
+                restTemplate.postForObject(postUrl, request, String.class);
+        JsonNode root = objectMapper.readTree(resultAsJsonStr);
 
         assertNotNull(resultAsJsonStr);
         assertNotNull(root);
-        assertNotNull(root.path("isLogin").asText().equals("false"));
+        assertEquals("false", root.path("isLogin").asText());
     }
+
 }
 
