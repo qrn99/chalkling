@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="503ffc55-dd0b-47e2-a748-1aab9caddd0d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/constants.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/login-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login-form.js" afterDir="false" />
     </list>
@@ -90,7 +89,8 @@
       <workItem from="1609122478149" duration="682000" />
       <workItem from="1609184186253" duration="4199000" />
       <workItem from="1609196901847" duration="4288000" />
-      <workItem from="1609213214986" duration="7118000" />
+      <workItem from="1609213214986" duration="7253000" />
+      <workItem from="1609270827940" duration="2195000" />
     </task>
     <task id="LOCAL-00001" summary="Remove gatsby from webapp">
       <created>1608787742286</created>
@@ -176,7 +176,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609212942462</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Add new headers">
+      <created>1609225266427</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1609225266427</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,6 +226,7 @@
     <MESSAGE value="Add REST API to login-form.js" />
     <MESSAGE value="Update json states." />
     <MESSAGE value="Add Content-Type header" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Content-Type header" />
+    <MESSAGE value="Add new headers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add new headers" />
   </component>
 </project>

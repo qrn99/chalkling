@@ -7,7 +7,9 @@ import Grid from '@material-ui/core/Grid'
 import jQuery from 'jquery'
 
 import '../styles/login.css'
-import { SERVER_URL } from "./constants"
+import { getServerURL } from "./constants"
+
+const fetch = require("node-fetch");
 
 export default class LoginForm extends React.Component{
     constructor(props){
@@ -20,28 +22,32 @@ export default class LoginForm extends React.Component{
         }
     }
 
-    fetchData = () => {
+    fetchData = (event) => {
+        event.preventDefault()
         const dataBody = JSON.stringify({
             username: this.state.username,
             password: this.state.password,
             isLogin: this.state.isLogin});
-        console.log(dataBody);
-        jQuery.ajax({
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            method: "POST",
-            mode: "no-cors",
-            url: SERVER_URL + "/api/login",
-            dataType: 'json',
-            data: dataBody
+        fetch(getServerURL() + "/api/login",
+            {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                method: "POST",
+                body: dataBody,
+            })
+            .then(dataJson => dataJson.json()).then(data => {
+                // check if it logs in or not.
+                this.setState({isLogin: Boolean(data.isLogin)})
+                this.updateErrorStatus()
+        }).catch(err => {
+            if (err === "server") return
         })
+
     }
 
-    updateLoginStatus = (event) => {
-        event.preventDefault()
-        this.fetchData()
+    updateErrorStatus = () => {
         if (!this.state.isLogin) {
             this.setState({password: '', error: true})
         } else {
@@ -70,7 +76,7 @@ export default class LoginForm extends React.Component{
                                            value={this.state.password}/>
                             </Grid>
                             <Grid item xs={12} id={'loginField'} align={'center'}>
-                                <Button variant="contained" color="inherit" onClick={this.updateLoginStatus}>Login</Button>
+                                <Button variant="contained" color="inherit" onClick={this.fetchData}>Login</Button>
                             </Grid>
                         </form>
                     </Paper>
