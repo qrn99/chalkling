@@ -14,9 +14,9 @@ public class UserDAC extends DAC{
 
     // TODO: Temporary; implement later.
     public void read(){
-        userService.addUser("user1", "pass1");
-        userService.addUser("user2", "pass2");
-        userService.addUser("user3", "pass3");
+        userService.addUser("user1", "salt1", "pass1");
+//        userService.addUser("user2", "pass2");
+//        userService.addUser("user3", "pass3");
     }
 
     // TODO: Temporary; implement later.
@@ -24,7 +24,4 @@ public class UserDAC extends DAC{
 
     }
 
-    public UserService getUserService() {
-        return userService;
-    }
 }

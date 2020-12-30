@@ -6,14 +6,16 @@ import java.util.List;
 public class User {
     private int userID;
     private String username;
-    private String password;
+    private String salt;
+    private String hash;
     private List<Integer> friendList;
 
     private static int id_counter = 0;
 
-    public User(String username, String password) {
+    public User(String username, String salt, String hash) {
         this.username = username;
-        this.password = password;
+        this.salt = salt;
+        this.hash = hash;
         this.userID = id_counter;
         this.friendList = new ArrayList<>();
         id_counter ++;
@@ -36,20 +38,37 @@ public class User {
     }
 
     /**
-     * Get password of current user
-     * @return the password of user
+     * Get salt of current user
+     * @return the salt of user
      */
-    public String getPassword() {
-        return password;
+    public String getSalt() {
+        return salt;
     }
 
     /**
-     * Set password of current user
-     * @param password password of current user
+     * Set salt of current user
+     * @param salt salt of current user
      */
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
+
+    /**
+     * Get hash of current user
+     * @return the hash of user
+     */
+    public String getHash() {
+        return hash;
+    }
+
+    /**
+     * Set hash of current user
+     * @param hash hash of current user
+     */
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
 
     /**
      * Get userID of current user

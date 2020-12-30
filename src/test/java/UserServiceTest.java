@@ -14,9 +14,9 @@ public class UserServiceTest {
     @Before
     public void setUp(){
         userService = new UserService();
-        userService.addUser("user1", "pass");
-        userService.addUser("user2", "pass");
-        userService.addUser("user3", "pass");
+        userService.addUser("user1", "$2a$10$vJ7jWUxKCI7stLVtgtpszO", "$2a$10$vJ7jWUxKCI7stLVtgtpszOnq91hVZttt9TbQ401fjqdz9ct5iW0Ju");
+        userService.addUser("user2", "$2a$10$Fxh.tTBv2V3MikJTIXB2.O", "$2a$10$Fxh.tTBv2V3MikJTIXB2.OlN324mu9cvl.ceKpXwAP/cTFU2Bf3UG");
+        userService.addUser("user3", "$2a$10$5wS1RHT.rFVyhlNowhD/Fu", "$2a$10$5wS1RHT.rFVyhlNowhD/FuX6OHfvgW0lo6AQB4UEmodWPPmFC8qIC");
     }
 
     @Test
