@@ -5,7 +5,7 @@ import teamchalkling.chalkling.business_logic_layer.UserService;
 public class UserDAC extends DAC{
 
     private final String table_name = "User";
-    private UserService userService = null;
+    private UserService userService;
 
     public UserDAC(String dbURL, UserService userService){
         super(dbURL);

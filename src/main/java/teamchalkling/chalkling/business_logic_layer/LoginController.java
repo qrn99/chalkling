@@ -4,10 +4,17 @@ import teamchalkling.chalkling.database_layer.UserDAC;
 
 public class LoginController {
 
+  private UserService userService;
   private UserDAC userDAC;
 
-  public LoginController(UserDAC userDAC) {
+  public LoginController(UserService userService, UserDAC userDAC) {
+    this.userService = userService;
     this.userDAC = userDAC;
+  }
+
+  public boolean addUser(String username, String password){
+    userService.addUser(username, password);
+    return true;
   }
 
   /**
@@ -16,7 +23,6 @@ public class LoginController {
    * @param password the password of the user
    */
   public boolean check(String username, String password) {
-    this.readUserData();
     boolean isLogin = userDAC.getUserService().canLogin(username, password);
     if (isLogin) {
       userDAC.getUserService().setCurrentUser(username);
@@ -24,9 +30,14 @@ public class LoginController {
     return isLogin;
   }
 
-  private void readUserData() {
-    // read all users by UserDAC
-    this.userDAC.read();
+  public boolean read(){
+    userDAC.read();
+    return true;
+  }
+
+  public boolean write(){
+    userDAC.write();
+    return true;
   }
 
 }

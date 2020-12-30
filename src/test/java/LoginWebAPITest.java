@@ -2,7 +2,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpEntity;
@@ -37,7 +36,7 @@ public class LoginWebAPITest {
         JSONObject loginJsonObject = new JSONObject();
         loginJsonObject.put("username", "user1");
         loginJsonObject.put("password", "pass1");
-        loginJsonObject.put("isLogin", "false");
+//        loginJsonObject.put("isLogin", "false");
 
         HttpEntity<String> request =
                 new HttpEntity<String>(loginJsonObject.toString(), headers);
@@ -48,7 +47,7 @@ public class LoginWebAPITest {
 
         assertNotNull(resultAsJsonStr);
         assertNotNull(root);
-        assertEquals("true", root.path("isLogin").asText());
+        assertEquals("true", root.path("status").asText());
 
 
 //        postUrl = "http://localhost:5000/api/login";
@@ -59,7 +58,7 @@ public class LoginWebAPITest {
         loginJsonObject = new JSONObject();
         loginJsonObject.put("username", "user1");
         loginJsonObject.put("password", "pass2");
-        loginJsonObject.put("isLogin", "false");
+//        loginJsonObject.put("isLogin", "false");
 
         request = new HttpEntity<String>(loginJsonObject.toString(), headers);
 
@@ -68,7 +67,7 @@ public class LoginWebAPITest {
 
         assertNotNull(resultAsJsonStr);
         assertNotNull(root);
-        assertEquals("false", root.path("isLogin").asText());
+        assertEquals("false", root.path("status").asText());
     }
 
 

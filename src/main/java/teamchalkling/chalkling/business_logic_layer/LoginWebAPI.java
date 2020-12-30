@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class LoginWebAPI {
 
     private Boolean isLogin;
-    private LoginController loginController;
+    private final LoginController loginController;
 
     @Value("${spring.datasource.url}")
     private String dbUrl;
@@ -34,24 +34,29 @@ public class LoginWebAPI {
     public LoginWebAPI(){
         UserService userService = new UserService();
         UserDAC userDAC = new UserDAC(dbUrl, userService);
-        LoginController loginController = new LoginController(userDAC);
-        this.loginController = loginController;
-        isLogin = new Boolean(false);
+        loginController = new LoginController(userService, userDAC);
+        isLogin = Boolean.FALSE;
 
     }
 
-
     /**
      * Return true if username and password of given loginJSON matches with database
-     * @param loginJSON
+     * @param userJSON
      * @return true if username and password are valid
      */
     @PostMapping(value = "/api/login", consumes = "application/json", produces = "application/json")
-    public LoginJSON addToList(@RequestBody LoginJSON loginJSON) {
-        isLogin = loginController.check(loginJSON.getUsername(), loginJSON.getPassword());
-        LoginJSON result = new LoginJSON(loginJSON.getUsername(), loginJSON.getPassword(), isLogin);
-        return result;
+    public StatusJSON verifyLogin(@RequestBody UserJSON userJSON) {
+        loginController.read();
+        isLogin = loginController.check(userJSON.getUsername(), userJSON.getPassword());
+        return new StatusJSON(isLogin);
 
+    }
+
+    @GetMapping(value = "/api/signup", consumes = "application/json")
+    public StatusJSON addUser(@RequestBody UserJSON userJSON){
+        loginController.addUser(userJSON.getUsername(), userJSON.getPassword());
+        loginController.write();
+        return new StatusJSON(true);
     }
 
 }
