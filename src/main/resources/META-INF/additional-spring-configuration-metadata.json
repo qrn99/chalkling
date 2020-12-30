@@ -1,0 +1,48 @@
+{
+  "properties": [
+    {
+      "name": "db.driver",
+      "type": "java.lang.String",
+      "description": "Description for db.driver."
+    },
+    {
+      "name": "db.url",
+      "type": "java.lang.String",
+      "description": "Description for db.url."
+    },
+    {
+      "name": "db.username",
+      "type": "java.lang.String",
+      "description": "Description for db.username."
+    },
+    {
+      "name": "db.password",
+      "type": "java.lang.String",
+      "description": "Description for db.password."
+    },
+    {
+      "name": "hibernate.dialect",
+      "type": "java.lang.String",
+      "description": "Description for hibernate.dialect."
+    },
+    {
+      "name": "hibernate.hbm2ddl.auto",
+      "type": "java.lang.String",
+      "description": "Description for hibernate.hbm2ddl.auto."
+    },
+    {
+      "name": "hibernate.ejb.naming_strategy",
+      "type": "java.lang.String",
+      "description": "Description for hibernate.ejb.naming_strategy."
+    },
+    {
+      "name": "hibernate.show_sql",
+      "type": "java.lang.String",
+      "description": "Description for hibernate.show_sql."
+    },
+    {
+      "name": "hibernate.format_sql",
+      "type": "java.lang.String",
+      "description": "Description for hibernate.format_sql."
+    }
+  ] }

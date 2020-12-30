@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="forkedChalkling" />
         <module name="chalkling-server" />
         <module name="chalkling" />
       </profile>
@@ -13,12 +14,14 @@
     <bytecodeTargetLevel>
       <module name="chalkling" target="1.8" />
       <module name="chalkling-server" target="1.5" />
+      <module name="forkedChalkling" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="chalkling" options="-parameters" />
       <module name="chalkling-server" options="-parameters" />
+      <module name="forkedChalkling" options="-parameters" />
     </option>
   </component>
 </project>
