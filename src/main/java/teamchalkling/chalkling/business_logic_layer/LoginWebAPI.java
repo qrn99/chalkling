@@ -52,10 +52,11 @@ public class LoginWebAPI {
 
     }
 
-    @GetMapping(value = "/api/signup", consumes = "application/json")
-    public void addUser(@RequestBody UserJSON userJSON){
+    @PostMapping(value = "/api/signup", consumes = "application/json", produces = "application/json")
+    public StatusJSON addUser(@RequestBody UserJSON userJSON){
         loginController.addUser(userJSON.getUsername(), userJSON.getPassword());
         loginController.write();
+        return new StatusJSON(true);
     }
 
 }
