@@ -2,6 +2,7 @@ package teamchalkling.chalkling.jpa.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -22,16 +23,30 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class PersistenceContext {
 
-    @Bean
-    DataSource dataSource(Environment env) {
-        HikariConfig dataSourceConfig = new HikariConfig();
-        dataSourceConfig.setDriverClassName(env.getRequiredProperty("db.driver"));
-        dataSourceConfig.setJdbcUrl(env.getRequiredProperty("db.url"));
-        dataSourceConfig.setUsername(env.getRequiredProperty("db.username"));
-        dataSourceConfig.setPassword(env.getRequiredProperty("db.password"));
+    @Value("${spring.datasource.url}")
+    private String dbUrl;
 
-        return new HikariDataSource(dataSourceConfig);
+    @Bean
+    public DataSource dataSource(){
+        if (dbUrl == null || dbUrl.isEmpty()) {
+            return new HikariDataSource();
+        } else {
+            HikariConfig config = new HikariConfig();
+            config.setJdbcUrl(dbUrl);
+            return new HikariDataSource(config);
+        }
     }
+
+//    @Bean
+//    DataSource dataSource(Environment env) {
+//        HikariConfig dataSourceConfig = new HikariConfig();
+//        dataSourceConfig.setDriverClassName(env.getRequiredProperty("db.driver"));
+//        dataSourceConfig.setJdbcUrl(env.getRequiredProperty("db.url"));
+//        dataSourceConfig.setUsername(env.getRequiredProperty("db.username"));
+//        dataSourceConfig.setPassword(env.getRequiredProperty("db.password"));
+//
+//        return new HikariDataSource(dataSourceConfig);
+//    }
 
     @Bean
     LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
