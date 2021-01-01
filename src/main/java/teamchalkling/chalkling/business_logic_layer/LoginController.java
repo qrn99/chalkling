@@ -1,23 +1,23 @@
 package teamchalkling.chalkling.business_logic_layer;
 
 import org.mindrot.jbcrypt.BCrypt;
-import teamchalkling.chalkling.database_layer.UserDAC;
+import org.springframework.stereotype.Controller;
+import teamchalkling.chalkling.jpa.user.*;
 
+@Controller
 public class LoginController {
 
   private UserService userService;
-  private UserDAC userDAC;
 
-  public LoginController(UserService userService, UserDAC userDAC) {
+  public LoginController(UserService userService) {
     this.userService = userService;
-    this.userDAC = userDAC;
   }
 
   /**
    * Add user to userService
    * @param username the username of the user
    * @param password the password of the user
-   * @return
+   * @return boolean  True if user does not exist in db and can be added newly, false otherwise
    */
   public boolean addUser(String username, String password){
     String[] result = HashPassword.createSaltAndHash(password);
@@ -51,16 +51,6 @@ public class LoginController {
       userService.setCurrentUser(username);
     }
     return isLogin;
-  }
-
-  public boolean read(){
-    userDAC.read();
-    return true;
-  }
-
-  public boolean write(){
-    userDAC.write();
-    return true;
   }
 
 }
