@@ -4,6 +4,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import teamchalkling.chalkling.user_system.*;
 
+// TODO: Combine LoginController and LoginWebAPI. Might need to change userService and its test cases
+//  accordingly.
 @Controller
 public class LoginController {
 
