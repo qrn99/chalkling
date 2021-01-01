@@ -2,13 +2,19 @@ package teamchalkling.chalkling.login_system;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import teamchalkling.chalkling.user_system.*;
 
-@Controller
+import javax.inject.Inject;
+
+@RestController
 public class LoginController {
 
-  private UserService userService;
+  private final UserService userService;
 
+  @Inject
   public LoginController(UserService userService) {
     this.userService = userService;
   }
@@ -51,6 +57,23 @@ public class LoginController {
       userService.setCurrentUser(username);
     }
     return isLogin;
+  }
+
+  /**
+   * Return true if username and password of given loginJSON matches with database
+   * @param userJSON input from user
+   * @return true if username and password are valid
+   */
+  @PostMapping(value = "/api/login", consumes = "application/json", produces = "application/json")
+  public StatusJSON verifyLogin(@RequestBody UserJSON userJSON) {
+    boolean isLogin = this.check(userJSON.getUsername(), userJSON.getPassword());
+    return new StatusJSON(isLogin);
+  }
+
+  @PostMapping(value = "/api/signup", consumes = "application/json", produces = "application/json")
+  public StatusJSON addUser(@RequestBody UserJSON userJSON){
+    boolean res = this.addUser(userJSON.getUsername(), userJSON.getPassword());
+    return new StatusJSON(res);
   }
 
   private String[] createSaltAndHash(String input) {
