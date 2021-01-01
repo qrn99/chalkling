@@ -1,7 +1,7 @@
 package teamchalkling.chalkling.business_logic_layer;
 
-import teamchalkling.chalkling.database_layer.UserDAC;
 import org.mindrot.jbcrypt.BCrypt;
+import teamchalkling.chalkling.database_layer.UserDAC;
 
 public class LoginController {
 
@@ -24,8 +24,11 @@ public class LoginController {
     String salt = result[0];
     String hash = result[1];
 
-    userService.addUser(username, salt, hash);
-    return true;
+    if (!userService.userExists(username)){
+      userService.addUser(username, salt, hash);
+      return true;
+    }
+    return false;
   }
 
   /**

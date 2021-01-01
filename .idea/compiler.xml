@@ -13,7 +13,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="chalkling" target="1.8" />
-      <module name="chalkling-server" target="1.5" />
+      <module name="chalkling-server" target="1.8" />
       <module name="forkedChalkling" target="1.8" />
     </bytecodeTargetLevel>
   </component>
