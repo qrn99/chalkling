@@ -14,7 +14,6 @@ public class LoginController {
 
   private final UserService userService;
 
-  @Inject
   public LoginController(UserService userService) {
     this.userService = userService;
   }
@@ -26,6 +25,8 @@ public class LoginController {
    * @return boolean  True if user does not exist in db and can be added newly, false otherwise
    */
   public boolean addUser(String username, String password){
+    //TODO: syntax validation to not have empty input, alphanumeric, balala
+    // return enum error to prompt user
     String[] result = createSaltAndHash(password);
     String salt = result[0];
     String hash = result[1];
