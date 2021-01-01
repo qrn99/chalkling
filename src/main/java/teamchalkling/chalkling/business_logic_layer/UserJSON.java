@@ -1,14 +1,12 @@
 package teamchalkling.chalkling.business_logic_layer;
 
-public class LoginJSON {
+public class UserJSON {
     private String username;
     private String password;
-    private boolean isLogin;
 
-    public LoginJSON(String username, String password, boolean isLogin) {
+    public UserJSON(String username, String password) {
         this.username = username;
         this.password = password;
-        this.isLogin = isLogin;
     }
 
     public String getUsername() {
@@ -26,13 +24,4 @@ public class LoginJSON {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public boolean getIsLogin() {
-        return isLogin;
-    }
-
-    public void setIsLogin(boolean isLogin) {
-        this.isLogin = isLogin;
-    }
-
 }

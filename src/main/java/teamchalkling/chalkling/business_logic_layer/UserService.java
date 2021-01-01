@@ -39,11 +39,12 @@ public class UserService {
 
     /**
      * Create user account and add to list of user accounts
-     * @param name String username of user account
-     * @param password String password of user account
+     * @param username String username of user account
+     * @param salt String salt of user account
+     * @param hash String hash of user account
      */
-    public void addUser(String name, String password){
-        User newUser = new User(name, password);
+    public void addUser(String username, String salt, String hash){
+        User newUser = new User(username, salt, hash);
         userList.add(newUser);
     }
 
@@ -71,14 +72,28 @@ public class UserService {
     }
 
     /**
+     * Return salt if username exist
+     * @param username the username of user account
+     * @return String salt
+     */
+    public String getUserSalt(String username) {
+        if (userExists(username)) {
+            return getUserByUsername(username).getSalt();
+        }
+        return null;
+    }
+
+    /**
      * Verifies if username and password matches the credentials stored for that user account (if it exists)
      * @param username String username input for user account
-     * @param password String password input for user account
+     * @param salt String salt input for user account
+     * @param hash String hash input for user account
      * @return True or False whether the username and the password matches an account in the list of user accounts
      */
-    public boolean canLogin(String username, String password) {
+    public boolean canLogin(String username, String salt, String hash) {
         for (User user : userList) {
-            if ((username.equals(user.getUsername())) && (password.equals(user.getPassword()))) {
+            if (username.equals(user.getUsername()) && salt.equals(user.getSalt()) && hash.equals(user.getHash())) {
+                // username matches
                 return true;
             }
         }
