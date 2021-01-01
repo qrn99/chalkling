@@ -2,9 +2,8 @@ package teamchalkling.chalkling.jpa.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -22,16 +21,19 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class PersistenceContext {
 
-    @Bean
-    DataSource dataSource(Environment env) {
-        HikariConfig dataSourceConfig = new HikariConfig();
-        dataSourceConfig.setDriverClassName(env.getRequiredProperty("db.driver"));
-        dataSourceConfig.setJdbcUrl(env.getRequiredProperty("db.url"));
-        dataSourceConfig.setUsername(env.getRequiredProperty("db.username"));
-        dataSourceConfig.setPassword(env.getRequiredProperty("db.password"));
-
-        return new HikariDataSource(dataSourceConfig);
-    }
+//    @Value("${spring.datasource.url}")
+//    private String dbUrl;
+//
+//    @Bean
+//    public DataSource dataSource(){
+//        if (dbUrl == null || dbUrl.isEmpty()) {
+//            return new HikariDataSource();
+//        } else {
+//            HikariConfig config = new HikariConfig();
+//            config.setJdbcUrl(dbUrl);
+//            return new HikariDataSource(config);
+//        }
+//    }
 
     @Bean
     LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
@@ -83,6 +85,4 @@ public class PersistenceContext {
         return transactionManager;
     }
 
-
-    //Add the other beans here
 }

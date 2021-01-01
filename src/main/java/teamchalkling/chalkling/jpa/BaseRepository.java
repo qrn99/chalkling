@@ -18,4 +18,6 @@ public interface BaseRepository<T, ID extends Serializable> extends Repository<T
     T save(T persisted);
 
     void deleteAll();
+
+    void flush();
 }

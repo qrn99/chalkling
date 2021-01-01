@@ -7,22 +7,29 @@ public interface UserService {
     void setCurrentUser(String userName);
 
     // TODO: Return user? return null right now
-    User getCurrentUser();
+    UserEntity getCurrentUser();
 
-    List<User> getAllUsers();
+    List<UserEntity> getAllUsers();
 
-    void addUser(String name, String password);
+    void addUser(String name, String salt, String hash);
 
     boolean removeUser(String username);
 
     boolean userExists(String username);
 
-    boolean canLogin(String username, String password);
+    /**
+     * Return salt if username exist
+     * @param username the username of user account
+     * @return String salt
+     */
+    String getUserSalt(String username);
 
-    // TODO: Should it be username or userID?
-    boolean addFriend(String username1, String username2);
+    boolean canLogin(String username, String salt, String hash);
 
-    // TODO: Should it be username or userID?
-    boolean removeFriend(String username1, String username2);
+//    // TODO: Should it be username or userID?
+//    boolean addFriend(String username1, String username2);
+//
+//    // TODO: Should it be username or userID?
+//    boolean removeFriend(String username1, String username2);
 
 }
