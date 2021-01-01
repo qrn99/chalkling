@@ -20,7 +20,7 @@ public class LoginController {
    * @return boolean  True if user does not exist in db and can be added newly, false otherwise
    */
   public boolean addUser(String username, String password){
-    String[] result = HashPassword.createSaltAndHash(password);
+    String[] result = createSaltAndHash(password);
     String salt = result[0];
     String hash = result[1];
 
@@ -51,6 +51,12 @@ public class LoginController {
       userService.setCurrentUser(username);
     }
     return isLogin;
+  }
+
+  private String[] createSaltAndHash(String input) {
+    String salt = BCrypt.gensalt(10);
+    String hash = BCrypt.hashpw(input, salt);
+    return new String[]{salt, hash};
   }
 
 }
