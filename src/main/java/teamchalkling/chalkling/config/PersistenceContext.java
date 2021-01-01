@@ -1,8 +1,5 @@
-package teamchalkling.chalkling.jpa.config;
+package teamchalkling.chalkling.config;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -17,7 +14,7 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource(value = "classpath:application.properties")
-@EnableJpaRepositories(basePackages = {"teamchalkling.chalkling.jpa"}) //your package name here
+@EnableJpaRepositories(basePackages = {"teamchalkling.chalkling"}) //your package name here
 @EnableTransactionManagement
 public class PersistenceContext {
 
@@ -41,7 +38,7 @@ public class PersistenceContext {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        entityManagerFactoryBean.setPackagesToScan("teamchalkling.chalkling.jpa.user");  //your package name here
+        entityManagerFactoryBean.setPackagesToScan("teamchalkling.chalkling");  //your package name here
 
         Properties jpaProperties = new Properties();
 

@@ -1,7 +1,4 @@
-package teamchalkling.chalkling.business_logic_layer;
-
-//import org.json.JSONObject;
-
+package teamchalkling.chalkling.login_system;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,24 +10,21 @@ import javax.inject.Inject;
 @RestController
 public class LoginWebAPI {
 
-    private Boolean isLogin;
-
     private final LoginController loginController;
 
     @Inject
     public LoginWebAPI(LoginController loginController){
         this.loginController = loginController;
-        isLogin = Boolean.FALSE;
     }
 
     /**
      * Return true if username and password of given loginJSON matches with database
-     * @param userJSON
+     * @param userJSON input from user
      * @return true if username and password are valid
      */
     @PostMapping(value = "/api/login", consumes = "application/json", produces = "application/json")
     public StatusJSON verifyLogin(@RequestBody UserJSON userJSON) {
-        isLogin = loginController.check(userJSON.getUsername(), userJSON.getPassword());
+        boolean isLogin = loginController.check(userJSON.getUsername(), userJSON.getPassword());
         return new StatusJSON(isLogin);
 
     }

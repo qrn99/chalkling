@@ -1,6 +1,6 @@
-package jpa;
+package user_system;
 
-import teamchalkling.chalkling.jpa.user.*;
+import teamchalkling.chalkling.user_system.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,14 +11,13 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static junit.framework.TestCase.*;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {teamchalkling.chalkling.jpa.config.PersistenceContext.class})
+@ContextConfiguration(classes = {teamchalkling.chalkling.config.PersistenceContext.class})
 @DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = UserRepository.class))
 public class UserRepositoryTest {
     @Autowired

@@ -1,4 +1,4 @@
-package teamchalkling.chalkling.jpa.user;
+package teamchalkling.chalkling.user_system;
 
 import teamchalkling.chalkling.jpa.BaseRepository;
 import org.springframework.data.jpa.repository.Query;

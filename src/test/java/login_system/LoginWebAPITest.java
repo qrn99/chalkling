@@ -1,3 +1,5 @@
+package login_system;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,18 +9,18 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import teamchalkling.chalkling.business_logic_layer.LoginController;
-import teamchalkling.chalkling.business_logic_layer.LoginWebAPI;
-import teamchalkling.chalkling.business_logic_layer.UserJSON;
-import teamchalkling.chalkling.jpa.user.UserRepository;
-import teamchalkling.chalkling.jpa.user.UserService;
-import teamchalkling.chalkling.jpa.user.UserServiceImpl;
+import teamchalkling.chalkling.login_system.LoginController;
+import teamchalkling.chalkling.login_system.LoginWebAPI;
+import teamchalkling.chalkling.login_system.UserJSON;
+import teamchalkling.chalkling.user_system.UserRepository;
+import teamchalkling.chalkling.user_system.UserService;
+import teamchalkling.chalkling.user_system.UserServiceImpl;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {teamchalkling.chalkling.jpa.config.PersistenceContext.class})
+@ContextConfiguration(classes = {teamchalkling.chalkling.config.PersistenceContext.class})
 @DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = UserRepository.class))
 public class LoginWebAPITest {
     private LoginWebAPI loginWebAPI;

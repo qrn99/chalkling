@@ -1,4 +1,4 @@
-package teamchalkling.chalkling.business_logic_layer;
+package teamchalkling.chalkling.login_system;
 
 import org.mindrot.jbcrypt.BCrypt;
 

@@ -1,8 +1,8 @@
-package teamchalkling.chalkling.business_logic_layer;
+package teamchalkling.chalkling.login_system;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
-import teamchalkling.chalkling.jpa.user.*;
+import teamchalkling.chalkling.user_system.*;
 
 @Controller
 public class LoginController {
