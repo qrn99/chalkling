@@ -44,6 +44,22 @@ public class UserServiceTest {
         assertFalse(userService.removeUser("user3"));
     }
 
+    @Test
+    public void testGetUserByUserId(){
+        // user1 should have userId 1, user2 have id=2, etc.
+        assertNotNull(userService.getUserByUserId(1));
+        assertNotNull(userService.getUserByUserId(2));
+        assertNotNull(userService.getUserByUserId(3));
+    }
+
+    @Test
+    public void testGetUserIdByUserName(){
+        // user1 should have userId 1, user2 have id=2, etc.
+        assertEquals(1, userService.getUserIdByUserName("user1"));
+        assertEquals(2, userService.getUserIdByUserName("user2"));
+        assertEquals(3, userService.getUserIdByUserName("user3"));
+    }
+
 //    @Test
 //    public void testAddFriend(){
 //        assertTrue(userService.addFriend("user1", "user2"));

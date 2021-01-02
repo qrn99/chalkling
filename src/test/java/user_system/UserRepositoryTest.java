@@ -60,6 +60,12 @@ public class UserRepositoryTest {
         assertEquals("Jan", actual_Jan.getUsername());
     }
 
+    @Test
+    public void testFindById(){
+        // user1 should have userId 1
+        assertEquals(userRepository.findById(1), userRepository.findByUsername("user1"));
+    }
+
 //    // TODO: Fix later
 //    @Test
 //    public void testFriendList(){
