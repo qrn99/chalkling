@@ -23,22 +23,26 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+    private UserEntity user1;
+    private UserEntity user2;
+
     @Before
     public void setUp() {
-        userRepository.save(new UserEntity("user1", "$2a$10$vJ7jWUxKCI7stLVtgtpszO", "$2a$10$vJ7jWUxKCI7stLVtgtpszOnq91hVZttt9TbQ401fjqdz9ct5iW0Ju"));
-        userRepository.save(new UserEntity("user2", "$2a$10$Fxh.tTBv2V3MikJTIXB2.O", "$2a$10$Fxh.tTBv2V3MikJTIXB2.OlN324mu9cvl.ceKpXwAP/cTFU2Bf3UG"));
+        user1 = new UserEntity("user1", "$2a$10$vJ7jWUxKCI7stLVtgtpszO", "$2a$10$vJ7jWUxKCI7stLVtgtpszOnq91hVZttt9TbQ401fjqdz9ct5iW0Ju");
+        user2 = new UserEntity("user2", "$2a$10$Fxh.tTBv2V3MikJTIXB2.O", "$2a$10$Fxh.tTBv2V3MikJTIXB2.OlN324mu9cvl.ceKpXwAP/cTFU2Bf3UG");
+        userRepository.save(user1);
+        userRepository.save(user2);
     }
 
     @Test
     public void testFindByUsername(){
-        Optional<UserEntity> user1 = userRepository.findByUsername("user1");
-        assertTrue(user1.isPresent());
-        //user is found
-        UserEntity actual_userEntity1 = user1.get();
-        assertEquals("user1", actual_userEntity1.getUsername());
+        Optional<UserEntity> found_user1 = userRepository.findByUsername("user1");
+        assertNotNull(found_user1);
+        //found_user1 is not null
+        assertEquals(user1, found_user1.get());
 
-        Optional<UserEntity> user = userRepository.findByUsername("DNE");
-        assertFalse(user.isPresent());
+        Optional<UserEntity> DNE_user = userRepository.findByUsername("DNE");
+        assertFalse(DNE_user.isPresent());
     }
 
     @Test
@@ -49,21 +53,19 @@ public class UserRepositoryTest {
 
     @Test
     public void testSave(){
-        UserEntity userEntity = new UserEntity("Jan", "$2a$10$vJ7jWUxKCI7stLVtgtpszO", "$2a$10$vJ7jWUxKCI7stLVtgtpszOnq91hVZttt9TbQ401fjqdz9ct5iW0Ju");
-        userRepository.save(userEntity);
+        UserEntity Jan = new UserEntity("Jan", "$2a$10$vJ7jWUxKCI7stLVtgtpszO", "$2a$10$vJ7jWUxKCI7stLVtgtpszOnq91hVZttt9TbQ401fjqdz9ct5iW0Ju");
+        userRepository.save(Jan);
         assertEquals(3, userRepository.findAll().size());
 
-        Optional<UserEntity> Jan = userRepository.findByUsername("Jan");
-        assertTrue(Jan.isPresent());
-        //Jan is found
-        UserEntity actual_Jan = Jan.get();
-        assertEquals("Jan", actual_Jan.getUsername());
+        Optional<UserEntity> found_Jan = userRepository.findByUsername("Jan");
+        assertNotNull(found_Jan);
+        //User Jan is found
+        assertEquals(Jan, found_Jan.get());
     }
 
     @Test
     public void testFindById(){
-        // user1 should have userId 1
-        assertEquals(userRepository.findById(1), userRepository.findByUsername("user1"));
+        assertEquals(user1, userRepository.findById(user1.getUserId()).get());
     }
 
 //    // TODO: Fix later
