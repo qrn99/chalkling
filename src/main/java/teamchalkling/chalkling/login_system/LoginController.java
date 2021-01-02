@@ -26,8 +26,6 @@ public class LoginController {
    * @return boolean  True if user does not exist in db and can be added newly, false otherwise
    */
   public LoginPrompt addUserAccount(String username, String password){
-    //TODO: syntax validation to not have empty input, alphanumeric, balala
-    // return enum error to prompt user
 
     if (username.trim().isEmpty()) {
       return LoginPrompt.EMPTY_USERNAME;
