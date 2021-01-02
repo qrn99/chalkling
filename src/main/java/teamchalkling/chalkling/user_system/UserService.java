@@ -26,6 +26,10 @@ public interface UserService {
 
     boolean canLogin(String username, String salt, String hash);
 
+    int getUserIdByUserName(String username);
+
+    UserEntity getUserByUserId(int userId);
+
 //    // TODO: Should it be username or userID?
 //    boolean addFriend(String username1, String username2);
 //

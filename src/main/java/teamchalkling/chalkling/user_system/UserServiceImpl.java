@@ -110,6 +110,18 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public int getUserIdByUserName(String username) {
+        if (!userExists(username)) return -1; // user DNE
+        else return getUserByUsername(username).getUserId();
+    }
+
+    @Override
+    public UserEntity getUserByUserId(int userId) {
+        Optional<UserEntity> temp = user_repository.findById(userId);
+        return temp.orElse(null);
+    }
+
 //    /**
 //     * Add friend into login user's friend list
 //     * @param   username1  String  the username of the friend the user wants to add
