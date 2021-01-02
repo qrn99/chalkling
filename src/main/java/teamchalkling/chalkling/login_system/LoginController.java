@@ -1,5 +1,6 @@
 package teamchalkling.chalkling.login_system;
 
+import org.apache.commons.lang3.StringUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,18 +25,26 @@ public class LoginController {
    * @param password the password of the user
    * @return boolean  True if user does not exist in db and can be added newly, false otherwise
    */
-  public boolean addUser(String username, String password){
+  public LoginPrompt addUserAccount(String username, String password){
     //TODO: syntax validation to not have empty input, alphanumeric, balala
     // return enum error to prompt user
+
+    if (username.trim().isEmpty()) {
+      return LoginPrompt.EMPTY_USERNAME;
+    } else if (password.trim().isEmpty()) {
+      return LoginPrompt.EMPTY_PASSWORD;
+    } else if (!StringUtils.isAlphanumeric(username)) {
+      return LoginPrompt.NOT_ALPHANUM;
+    } else if (userService.userExists(username)) {
+      return LoginPrompt.USER_EXIST;
+    }
+
     String[] result = createSaltAndHash(password);
     String salt = result[0];
     String hash = result[1];
 
-    if (!userService.userExists(username)){
-      userService.addUser(username, salt, hash);
-      return true;
-    }
-    return false;
+    userService.addUser(username, salt, hash);
+    return LoginPrompt.SUCCESS;
   }
 
   /**
@@ -44,20 +53,19 @@ public class LoginController {
    * @param password the password of the user
    */
   public boolean check(String username, String password) {
-    // read salt from database, and transform password to hash
     if (!userService.userExists(username)) {
       // username don't exist
       return false;
+    } else {
+      // username exist, read salt, generate givenHash
+      String salt = userService.getUserSalt(username);
+      String givenHash = BCrypt.hashpw(password, salt);
+      if (userService.canLogin(username, salt, givenHash)) {
+        userService.setCurrentUser(username);
+        return true;
+      }
+      return false;
     }
-    // username exist, read salt, generate givenHash
-    String salt = userService.getUserSalt(username);
-    String givenHash = BCrypt.hashpw(password, salt);
-    // if givenHash matches with actual hash in database, isLogin is true
-    boolean isLogin = userService.canLogin(username, salt, givenHash);
-    if (isLogin) {
-      userService.setCurrentUser(username);
-    }
-    return isLogin;
   }
 
   /**
@@ -72,9 +80,9 @@ public class LoginController {
   }
 
   @PostMapping(value = "/api/signup", consumes = "application/json", produces = "application/json")
-  public StatusJSON addUser(@RequestBody UserJSON userJSON){
-    boolean res = this.addUser(userJSON.getUsername(), userJSON.getPassword());
-    return new StatusJSON(res);
+  public SignUpJSON addUser(@RequestBody UserJSON userJSON){
+    LoginPrompt res = this.addUserAccount(userJSON.getUsername(), userJSON.getPassword());
+    return new SignUpJSON(res);
   }
 
   private String[] createSaltAndHash(String input) {

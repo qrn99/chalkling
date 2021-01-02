@@ -34,8 +34,8 @@ public class LoginControllerTest {
     public void setUp(){
         UserService userService = new UserServiceImpl(userRepository);
         loginController = new LoginController(userService);
-        loginController.addUser("user1", "pass1");
-        loginController.addUser("user2", "pass2");
+        loginController.addUserAccount("user1", "pass1");
+        loginController.addUserAccount("user2", "pass2");
     }
 
     @Test
@@ -48,14 +48,14 @@ public class LoginControllerTest {
 
     @Test
     public void testSignUp(){
-        assertTrue(loginController.addUser(user0).getStatus());
-        assertFalse(loginController.addUser(user0_sim).getStatus()); // preserve uniqueness
+        assertTrue(loginController.addUser(user0).getStatus().equals("SUCCESS"));
+        assertTrue(loginController.addUser(user0_sim).getStatus().equals("USER_EXIST")); // preserve uniqueness
     }
 
     @Test
     public void testLogIn(){
-        assertTrue(loginController.addUser(user0).getStatus());
-        assertTrue(loginController.addUser(user1).getStatus());
+        assertTrue(loginController.addUser(user0).getStatus().equals("SUCCESS"));
+        assertTrue(loginController.addUser(user1).getStatus().equals("SUCCESS"));
         assertTrue(loginController.verifyLogin(user0).getStatus());
         assertTrue(loginController.verifyLogin(user1).getStatus());
 
