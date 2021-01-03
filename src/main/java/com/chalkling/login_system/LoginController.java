@@ -3,6 +3,7 @@ package com.chalkling.login_system;
 import com.chalkling.user_system.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,7 @@ import com.chalkling.user_system.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @RestController
 public class LoginController {
@@ -21,11 +23,18 @@ public class LoginController {
     this.userService = userService;
   }
 
+  @GetMapping(value = "/api/login", produces = "application/json")
+  public StatusJSON isLogin(HttpSession session){
+    String username = userService.getCurrentUser(session);
+    return new StatusJSON(username != null);
+  }
+
   /**
    * Return true if username and password of given loginJSON matches with database
    * @param userJSON input from user
    * @return true if username and password are valid
    */
+  // TODO: Might be GET instead of POST?
   @PostMapping(value = "/api/login", consumes = "application/json", produces = "application/json")
   public StatusJSON verifyLogin(@RequestBody UserJSON userJSON, HttpServletRequest request) {
 
