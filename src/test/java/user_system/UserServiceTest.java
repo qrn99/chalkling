@@ -1,7 +1,10 @@
 package user_system;
 
-import org.springframework.test.annotation.Rollback;
-import teamchalkling.chalkling.user_system.*;
+import com.chalkling.config.PersistenceContext;
+import com.chalkling.user_system.UserEntity;
+import com.chalkling.user_system.UserRepository;
+import com.chalkling.user_system.UserService;
+import com.chalkling.user_system.UserServiceImpl;
 import org.junit.*;
 
 import org.junit.runner.RunWith;
@@ -15,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static junit.framework.TestCase.*;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {teamchalkling.chalkling.config.PersistenceContext.class})
+@ContextConfiguration(classes = {PersistenceContext.class})
 @DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = UserRepository.class))
 public class UserServiceTest {
     @Autowired

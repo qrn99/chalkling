@@ -1,10 +1,10 @@
-package teamchalkling.chalkling.message_system;
+package com.chalkling.message_system;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import teamchalkling.chalkling.user_system.UserService;
+import com.chalkling.user_system.UserService;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package teamchalkling.chalkling.message_system;
+package com.chalkling.message_system;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

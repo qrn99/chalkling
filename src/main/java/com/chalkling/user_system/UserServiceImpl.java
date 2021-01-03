@@ -1,4 +1,4 @@
-package teamchalkling.chalkling.user_system;
+package com.chalkling.user_system;
 
 import org.springframework.stereotype.Service;
 

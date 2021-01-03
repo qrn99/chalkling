@@ -1,5 +1,9 @@
 package login_system;
 
+import com.chalkling.config.PersistenceContext;
+import com.chalkling.user_system.UserRepository;
+import com.chalkling.user_system.UserService;
+import com.chalkling.user_system.UserServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,14 +13,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import teamchalkling.chalkling.login_system.LoginController;
-import teamchalkling.chalkling.login_system.UserJSON;
-import teamchalkling.chalkling.user_system.*;
+import com.chalkling.login_system.LoginController;
+import com.chalkling.login_system.UserJSON;
 
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {teamchalkling.chalkling.config.PersistenceContext.class})
+@ContextConfiguration(classes = {PersistenceContext.class})
 @DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = UserRepository.class))
 public class LoginControllerTest {
 

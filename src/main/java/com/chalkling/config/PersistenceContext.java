@@ -1,4 +1,4 @@
-package teamchalkling.chalkling.config;
+package com.chalkling.config;
 
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
@@ -14,7 +14,7 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource(value = "classpath:application.properties")
-@EnableJpaRepositories(basePackages = {"teamchalkling.chalkling"}) //your package name here
+@EnableJpaRepositories(basePackages = {"com.chalkling"}) //your package name here
 @EnableTransactionManagement
 public class PersistenceContext {
 
@@ -38,7 +38,7 @@ public class PersistenceContext {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        entityManagerFactoryBean.setPackagesToScan("teamchalkling.chalkling");  //your package name here
+        entityManagerFactoryBean.setPackagesToScan("com.chalkling");  //your package name here
 
         Properties jpaProperties = new Properties();
 

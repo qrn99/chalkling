@@ -1,4 +1,4 @@
-package teamchalkling.chalkling.login_system;
+package com.chalkling.login_system;
 
 public class StatusJSON {
     private boolean status;

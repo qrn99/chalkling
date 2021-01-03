@@ -1,9 +1,9 @@
-package teamchalkling.chalkling.message_system;
+package com.chalkling.message_system;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import teamchalkling.chalkling.jpa.BaseRepository;
+import com.chalkling.jpa.BaseRepository;
 
 import java.util.List;
 

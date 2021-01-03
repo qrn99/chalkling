@@ -1,5 +1,9 @@
 package message_system;
 
+import com.chalkling.config.PersistenceContext;
+import com.chalkling.message_system.MessageEntity;
+import com.chalkling.message_system.MessageRepository;
+import com.chalkling.message_system.MessageType;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +13,13 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import teamchalkling.chalkling.message_system.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.*;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {teamchalkling.chalkling.config.PersistenceContext.class})
+@ContextConfiguration(classes = {PersistenceContext.class})
 @DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = MessageRepository.class))
 public class MessageRepositoryTest {
     @Autowired private MessageRepository messageRepository;

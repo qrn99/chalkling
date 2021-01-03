@@ -1,11 +1,12 @@
-package teamchalkling.chalkling.login_system;
+package com.chalkling.login_system;
 
+import com.chalkling.user_system.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import teamchalkling.chalkling.user_system.*;
+import com.chalkling.user_system.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;

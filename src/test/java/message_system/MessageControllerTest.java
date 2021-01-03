@@ -1,5 +1,11 @@
 package message_system;
 
+import com.chalkling.config.PersistenceContext;
+import com.chalkling.message_system.*;
+import com.chalkling.user_system.UserEntity;
+import com.chalkling.user_system.UserRepository;
+import com.chalkling.user_system.UserService;
+import com.chalkling.user_system.UserServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,16 +15,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import teamchalkling.chalkling.message_system.*;
-import teamchalkling.chalkling.user_system.*;
 
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {teamchalkling.chalkling.config.PersistenceContext.class})
-@DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = {MessageRepository.class,UserRepository.class} ))
+@ContextConfiguration(classes = {PersistenceContext.class})
+@DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = {MessageRepository.class, UserRepository.class} ))
 public class MessageControllerTest {
 
     private MessageController messageController;
