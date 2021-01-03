@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import teamchalkling.chalkling.user_system.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class LoginController {
@@ -72,13 +73,13 @@ public class LoginController {
    * @return true if username and password are valid
    */
   @PostMapping(value = "/api/login", consumes = "application/json", produces = "application/json")
-  public StatusJSON verifyLogin(@RequestBody UserJSON userJSON) {
+  public StatusJSON verifyLogin(@RequestBody UserJSON userJSON, HttpServletRequest request) {
     boolean isLogin = this.check(userJSON.getUsername(), userJSON.getPassword());
     return new StatusJSON(isLogin);
   }
 
   @PostMapping(value = "/api/signup", consumes = "application/json", produces = "application/json")
-  public SignUpJSON addUser(@RequestBody UserJSON userJSON){
+  public SignUpJSON addUser(@RequestBody UserJSON userJSON, HttpServletRequest request){
     LoginPrompt res = this.addUserAccount(userJSON.getUsername(), userJSON.getPassword());
     return new SignUpJSON(res);
   }

@@ -48,19 +48,19 @@ public class LoginControllerTest {
 
     @Test
     public void testSignUp(){
-        assertTrue(loginController.addUser(user0).getStatus().equals("SUCCESS"));
-        assertTrue(loginController.addUser(user0_sim).getStatus().equals("USER_EXIST")); // preserve uniqueness
+        assertTrue(loginController.addUser(user0, null).getStatus().equals("SUCCESS"));
+        assertTrue(loginController.addUser(user0_sim, null).getStatus().equals("USER_EXIST")); // preserve uniqueness
     }
 
     @Test
     public void testLogIn(){
-        assertTrue(loginController.addUser(user0).getStatus().equals("SUCCESS"));
-        assertTrue(loginController.addUser(user1).getStatus().equals("SUCCESS"));
-        assertTrue(loginController.verifyLogin(user0).getStatus());
-        assertTrue(loginController.verifyLogin(user1).getStatus());
+        assertTrue(loginController.addUser(user0, null).getStatus().equals("SUCCESS"));
+        assertTrue(loginController.addUser(user1, null).getStatus().equals("SUCCESS"));
+        assertTrue(loginController.verifyLogin(user0, null).getStatus());
+        assertTrue(loginController.verifyLogin(user1, null).getStatus());
 
-        assertFalse(loginController.verifyLogin(user2).getStatus());
-        assertFalse(loginController.verifyLogin(user0_sim).getStatus());
+        assertFalse(loginController.verifyLogin(user2, null).getStatus());
+        assertFalse(loginController.verifyLogin(user0_sim, null).getStatus());
     }
 
 }
