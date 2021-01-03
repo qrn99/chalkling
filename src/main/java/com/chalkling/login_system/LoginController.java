@@ -25,7 +25,7 @@ public class LoginController {
   }
 
   @PutMapping(value = "/api/logout")
-  public void invalidateSession(HttpServletRequest request){
+  public void logOut(HttpServletRequest request){
     HttpSession session = request.getSession(false);
     if(session != null) {
       session.invalidate();

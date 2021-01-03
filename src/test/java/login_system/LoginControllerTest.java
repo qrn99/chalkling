@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.chalkling.login_system.LoginController;
@@ -33,10 +34,16 @@ public class LoginControllerTest {
     private final UserJSON user1 = new UserJSON("test1", "?#$%:3;");
     private final UserJSON user2 = new UserJSON("test2", "helloworld");
 
+    private MockHttpServletRequest request;
+
     @Before
     public void setUp(){
         UserService userService = new UserServiceImpl(userRepository);
         loginController = new LoginController(userService);
+
+        request = new MockHttpServletRequest("POST", "/api/login");
+        request.setContentType("application/json");
+
     }
 
     @Test
@@ -46,17 +53,40 @@ public class LoginControllerTest {
     }
 
     @Test
-    public void testLogIn(){
+    public void testVerifyLogin(){
         assertEquals("SUCCESS", loginController.addUser(user0).getStatus());
         assertEquals("SUCCESS", loginController.addUser(user1).getStatus());
-        // TODO: Fix testcases so that it uses mock HttpServletRequest.
-//        assertTrue(loginController.verifyLogin(user0, null).getStatus());
-//        assertTrue(loginController.verifyLogin(user1, null).getStatus());
-//
-//        assertFalse(loginController.verifyLogin(user2, null).getStatus());
-//        assertFalse(loginController.verifyLogin(user0_sim, null).getStatus());
+
+        assertTrue(loginController.verifyLogin(user0, request).getStatus());
+        assertTrue(loginController.verifyLogin(user1, request).getStatus());
+        assertFalse(loginController.verifyLogin(user2, request).getStatus());
+        assertFalse(loginController.verifyLogin(user0_sim, request).getStatus());
+
     }
 
-    // TODO: Add testcases for isLogin
+    @Test
+    public void testIsLogin() {
+        loginController.verifyLogin(user1, request);
+        assertFalse(loginController.isLogin(request).getStatus());
+
+        loginController.addUser(user0);
+        loginController.verifyLogin(user0, request);
+        assertTrue(loginController.isLogin(request).getStatus());
+    }
+
+    @Test
+    public void testLogOut() {
+        loginController.addUser(user0);
+        loginController.verifyLogin(user0, request);
+        assertTrue(loginController.isLogin(request).getStatus());
+        loginController.logOut(request);
+        assertFalse(loginController.isLogin(request).getStatus());
+
+        loginController.addUser(user1);
+        loginController.verifyLogin(user1, request);
+        assertTrue(loginController.isLogin(request).getStatus());
+        loginController.logOut(request);
+        assertFalse(loginController.isLogin(request).getStatus());
+    }
 
 }
