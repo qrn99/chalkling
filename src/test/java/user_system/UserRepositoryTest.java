@@ -34,17 +34,7 @@ public class UserRepositoryTest {
         userRepository.save(user2);
     }
 
-    @Test
-    public void testFindByUsername(){
-        Optional<UserEntity> found_user1 = userRepository.findByUsername("user1");
-        assertNotNull(found_user1);
-        //found_user1 is not null
-        assertEquals(user1, found_user1.get());
-
-        Optional<UserEntity> DNE_user = userRepository.findByUsername("DNE");
-        assertFalse(DNE_user.isPresent());
-    }
-
+    // Test BaseRepository
     @Test
     public void testRead(){
         List<UserEntity> userEntities = userRepository.findAll();
@@ -68,6 +58,17 @@ public class UserRepositoryTest {
         assertEquals(user1, userRepository.findById(user1.getUserId()).get());
     }
 
+    // Test UserRepository
+    @Test
+    public void testFindByUsername(){
+        Optional<UserEntity> found_user1 = userRepository.findByUsername("user1");
+        assertNotNull(found_user1);
+        //found_user1 is not null
+        assertEquals(user1, found_user1.get());
+
+        Optional<UserEntity> DNE_user = userRepository.findByUsername("DNE");
+        assertFalse(DNE_user.isPresent());
+    }
 //    // TODO: Fix later
 //    @Test
 //    public void testFriendList(){

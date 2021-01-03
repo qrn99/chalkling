@@ -11,10 +11,16 @@ public class MessageServiceImpl implements MessageService{
         this.message_repository = messageRepository;
     }
 
+    @Override
     public List<MessageEntity> findConversation(int senderId, int receiverId, MessageType messageType) {
-        return message_repository.findBySenderIdAndReceiverIdAndMessageType(senderId, receiverId, messageType);
+        // TODO: channel messages requires overloading
+        List<MessageEntity> forward = message_repository.findBySenderIdAndReceiverIdAndMessageType(senderId, receiverId, messageType);
+        List<MessageEntity> backward = message_repository.findBySenderIdAndReceiverIdAndMessageType(receiverId, senderId, messageType);
+        forward.addAll(backward);
+        return forward;
     }
 
+    @Override
     public void addMessage(MessageType messageType, int senderId, int receiverId, String content) {
         message_repository.save(new MessageEntity(messageType, senderId, receiverId, content));
     }
