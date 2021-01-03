@@ -3,11 +3,7 @@ package com.chalkling.login_system;
 import com.chalkling.user_system.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import com.chalkling.user_system.*;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +20,16 @@ public class LoginController {
   }
 
   @GetMapping(value = "/api/login", produces = "application/json")
-  public StatusJSON isLogin(HttpSession session){
-    String username = userService.getCurrentUser(session);
-    return new StatusJSON(username != null);
+  public StatusJSON isLogin(HttpServletRequest request){
+    return new StatusJSON(userService.getCurrentUser(request) != null);
+  }
+
+  @PutMapping(value = "/api/logout")
+  public void invalidateSession(HttpServletRequest request){
+    HttpSession session = request.getSession(false);
+    if(session != null) {
+      session.invalidate();
+    }
   }
 
   /**
@@ -49,7 +52,7 @@ public class LoginController {
       if (userService.canLogin(userJSON.getUsername(), salt, givenHash)) {
 
         // TODO: Should store JWTs in the session rather than just the username.
-        userService.setCurrentUser(request.getSession(), userJSON.getUsername());
+        userService.setCurrentUser(request, userJSON.getUsername());
 
         return new StatusJSON(true);
       }

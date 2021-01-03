@@ -3,6 +3,7 @@ package com.chalkling.user_system;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
@@ -106,14 +107,25 @@ public class UserServiceImpl implements UserService {
     // TODO: Properly implement
     // TODO: Use JWT for logged in sessions.
     @Override
-    public void setCurrentUser(HttpSession session, String username){
-        session.setAttribute("CHALKLING_USERNAME", username);
+    public void setCurrentUser(HttpServletRequest request, String username){
+        if (request.getSession(false) != null) {
+            request.getSession(false).setAttribute("CHALKLING_USERNAME", username);
+        }
+        request.getSession(true).setAttribute("CHALKLING_USERNAME", username);
     }
 
+    /**
+     * Returns username.
+     * @param request The client's browser request.
+     * @return username if valid session. Null otherwise.
+     */
     // TODO: Use JWT?
     @Override
-    public String getCurrentUser(HttpSession session){
-        return (String) session.getAttribute("CHALKLING_USERNAME");
+    public String getCurrentUser(HttpServletRequest request){
+        if (request.getSession(false) != null) {
+            return (String) request.getSession(false).getAttribute("CHALKLING_USERNAME");
+        }
+        return null;
     }
 
 //    /**
