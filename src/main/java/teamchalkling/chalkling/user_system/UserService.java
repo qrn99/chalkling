@@ -1,13 +1,9 @@
 package teamchalkling.chalkling.user_system;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface UserService {
-
-    void setCurrentUser(String userName);
-
-    // TODO: Return user? return null right now
-    UserEntity getCurrentUser();
 
     List<UserEntity> getAllUsers();
 
@@ -29,6 +25,15 @@ public interface UserService {
     int getUserIdByUserName(String username);
 
     UserEntity getUserByUserId(int userId);
+
+    public void setCurrentUser(HttpSession session, String username);
+
+    /**
+     * Returns username.
+     * @param session The client's browser session.
+     * @return username if valid session. Null otherwise.
+     */
+    public String getCurrentUser(HttpSession session);
 
 //    // TODO: Should it be username or userID?
 //    boolean addFriend(String username1, String username2);

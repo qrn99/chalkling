@@ -1,8 +1,11 @@
 package teamchalkling.chalkling.message_system;
 
+import org.springframework.stereotype.Service;
+
 import javax.inject.Inject;
 import java.util.List;
 
+@Service
 public class MessageServiceImpl implements MessageService{
     private final MessageRepository message_repository;
 

@@ -3,6 +3,7 @@ package teamchalkling.chalkling.user_system;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,28 +15,6 @@ public class UserServiceImpl implements UserService {
     @Inject
     public UserServiceImpl(UserRepository userRepository) {
         this.user_repository = userRepository;
-    }
-
-    /**
-     * Sets the current user logged in
-     * @param userName  String  the username of the user
-     */
-    @Override
-    public void setCurrentUser(String userName){
-        currentUserEntity = getUserByUsername(userName);
-    }
-
-    /**
-     * Gets the current user's ID, that is logged in
-     * @return UserEntity the UserEntity that currently logged in
-     */
-    // TODO: Return user?
-    @Override
-    public UserEntity getCurrentUser(){
-        if (currentUserEntity != null){
-            return currentUserEntity;
-        }
-        return null;
     }
 
     /**
@@ -88,6 +67,7 @@ public class UserServiceImpl implements UserService {
      * @param username the username of user account
      * @return String salt
      */
+    @Override
     public String getUserSalt(String username) {
         if (userExists(username)) {
             return getUserByUsername(username).getSalt();
@@ -102,6 +82,7 @@ public class UserServiceImpl implements UserService {
      * @param hash String hash input for user account
      * @return True or False whether the username and the password matches an account in the list of user accounts
      */
+    @Override
     public boolean canLogin(String username, String salt, String hash) {
         if (!userExists(username)) return false;
         else {
@@ -120,6 +101,19 @@ public class UserServiceImpl implements UserService {
     public UserEntity getUserByUserId(int userId) {
         Optional<UserEntity> temp = user_repository.findById(userId);
         return temp.orElse(null);
+    }
+
+    // TODO: Properly implement
+    // TODO: Use JWT for logged in sessions.
+    @Override
+    public void setCurrentUser(HttpSession session, String username){
+        session.setAttribute("CHALKLING_USERNAME", username);
+    }
+
+    // TODO: Use JWT?
+    @Override
+    public String getCurrentUser(HttpSession session){
+        return (String) session.getAttribute("CHALKLING_USERNAME");
     }
 
 //    /**

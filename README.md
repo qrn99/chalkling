@@ -21,3 +21,4 @@ correspondingly.
 * [Spring Data JPA Tutorial by Petri Kainulainen](https://www.petrikainulainen.net/spring-data-jpa-tutorial/)
 * [JUnit Tests for Spring Data JPA by Nam Ha Minh](https://www.codejava.net/frameworks/spring-boot/junit-tests-for-spring-data-jpa)
 * [Self-Contained Testing Using an In-Memory Database by baeldung](https://www.baeldung.com/spring-jpa-test-in-memory-database)
+* [Spring Boot + Session Management Hello World Example - javainuse](https://www.javainuse.com/spring/springboot_session)
