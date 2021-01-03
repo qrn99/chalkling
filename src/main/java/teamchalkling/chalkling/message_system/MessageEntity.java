@@ -47,32 +47,16 @@ public class MessageEntity {
         return time;
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public MessageType getMessageType() {
         return messageType;
-    }
-
-    public void setMessageType(MessageType messageType) {
-        this.messageType = messageType;
     }
 
     public int getSenderId() {
         return senderId;
     }
 
-    public void setSenderId(int senderId) {
-        this.senderId = senderId;
-    }
-
     public int getReceiverId() {
         return receiverId;
-    }
-
-    public void setReceiverId(int receiverId) {
-        this.receiverId = receiverId;
     }
 
     public String getContent() {
