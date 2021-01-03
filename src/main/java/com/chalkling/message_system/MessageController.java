@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.chalkling.user_system.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -21,8 +22,8 @@ public class MessageController {
 
 
     @PostMapping(value = "/api/message", consumes = "application/json", produces = "application/json")
-    public MessageJSON getConversation(@RequestBody GetMessageJSON getMessageJSON) {
-        String senderName = getMessageJSON.getSenderName();
+    public MessageJSON getConversation(@RequestBody GetMessageJSON getMessageJSON, HttpServletRequest request) {
+        String senderName = userService.getCurrentUser(request);
         String receiverName = getMessageJSON.getReceiverName();
         if (!userService.userExists(senderName) || !userService.userExists(receiverName)) {
             return null;
@@ -35,14 +36,14 @@ public class MessageController {
 
 
     @PutMapping(value = "/api/message", consumes = "application/json", produces = "application/json")
-    public void sendMessage(@RequestBody AddMessageJSON addMessageJSON) {
-        String senderName = addMessageJSON.getSenderName();
+    public void sendMessage(@RequestBody AddMessageJSON addMessageJSON, HttpServletRequest request) {
+        String senderName = userService.getCurrentUser(request);
         String receiverName = addMessageJSON.getReceiverName();
         if (!userService.userExists(senderName) || !userService.userExists(receiverName)) {
             return;
         }
-        int senderId = userService.getUserIdByUserName(addMessageJSON.getSenderName());
-        int receiverId = userService.getUserIdByUserName(addMessageJSON.getReceiverName());
+        int senderId = userService.getUserIdByUserName(senderName);
+        int receiverId = userService.getUserIdByUserName(receiverName);
         messageService.addMessage(addMessageJSON.getMessageType(), senderId, receiverId, addMessageJSON.getContent());
 
     }

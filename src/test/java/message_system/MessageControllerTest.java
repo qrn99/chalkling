@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -26,6 +27,8 @@ import static junit.framework.TestCase.assertEquals;
 public class MessageControllerTest {
 
     private MessageController messageController;
+    private UserService userService;
+    private MessageService messageService;
 
     @Autowired
     private MessageRepository messageRepository;
@@ -44,21 +47,18 @@ public class MessageControllerTest {
 
     private GetMessageJSON getMessage1;
     private GetMessageJSON getMessage2;
-    private GetMessageJSON getMessage3;
 
+    private MockHttpServletRequest request;
 
     @Before
     public void setUp(){
-        message1 = new AddMessageJSON("DIRECT", "user1", "user2", "msg1");
-        message2 = new AddMessageJSON("DIRECT", "user2", "user3", "msg2");
-        message3 = new AddMessageJSON("DIRECT", "user2", "user3", "msg3");
+        message1 = new AddMessageJSON("DIRECT", "user2", "msg1");
+        message2 = new AddMessageJSON("DIRECT", "user3", "msg2");
+        message3 = new AddMessageJSON("DIRECT", "user3", "msg3");
 
 
-        getMessage1 = new GetMessageJSON("DIRECT", "user1", "user2");
-        getMessage2 = new GetMessageJSON("DIRECT", "user2", "user3");
-        getMessage3 = new GetMessageJSON("DIRECT", "user1", "user3");
-
-
+        getMessage1 = new GetMessageJSON("DIRECT", "user2");
+        getMessage2 = new GetMessageJSON("DIRECT", "user3");
 
         user1 = new UserEntity("user1", "$2a$10$vJ7jWUxKCI7stLVtgtpszO", "$2a$10$vJ7jWUxKCI7stLVtgtpszOnq91hVZttt9TbQ401fjqdz9ct5iW0Ju");
         user2 = new UserEntity("user2", "$2a$10$Fxh.tTBv2V3MikJTIXB2.O", "$2a$10$Fxh.tTBv2V3MikJTIXB2.OlN324mu9cvl.ceKpXwAP/cTFU2Bf3UG");
@@ -67,16 +67,21 @@ public class MessageControllerTest {
         userRepository.save(user2);
         userRepository.save(user3);
 
-        UserService userService = new UserServiceImpl(userRepository);
-        MessageService messageService = new MessageServiceImpl(messageRepository);
+        userService = new UserServiceImpl(userRepository);
+        messageService = new MessageServiceImpl(messageRepository);
         messageController = new MessageController(messageService, userService);
+
+        request = new MockHttpServletRequest("POST", "/api/login");
+        request.setContentType("application/json");
     }
 
     @Test
     public void testSendMessage(){
-        messageController.sendMessage(message1);
-        messageController.sendMessage(message2);
-        messageController.sendMessage(message3);
+        userService.setCurrentUser(request, user1.getUsername());
+        messageController.sendMessage(message1, request);
+        userService.setCurrentUser(request, user2.getUsername());
+        messageController.sendMessage(message2, request);
+        messageController.sendMessage(message3, request);
 
         List<MessageEntity> messages = messageRepository.findBySenderIdAndReceiverIdAndMessageType(user1.getUserId(), user2.getUserId(), MessageType.DIRECT);
         assertEquals(1, messages.size());
@@ -96,17 +101,21 @@ public class MessageControllerTest {
 
     @Test
     public void testGetConversation(){
-        messageController.sendMessage(message1);
-        messageController.sendMessage(message2);
-        messageController.sendMessage(message3);
+        userService.setCurrentUser(request, user1.getUsername());
+        messageController.sendMessage(message1, request);
 
-        MessageJSON messageJSON1 = messageController.getConversation(getMessage1);
-        MessageJSON messageJSON2 = messageController.getConversation(getMessage2);
-        MessageJSON messageJSON3 = messageController.getConversation(getMessage3);
 
+        MessageJSON messageJSON1 = messageController.getConversation(getMessage1, request);
         assertEquals(messageJSON1.getMessages().get(0).getSenderId(), user1.getUserId());
         assertEquals(messageJSON1.getMessages().get(0).getReceiverId(), user2.getUserId());
         assertEquals("msg1", messageJSON1.getMessages().get(0).getContent());
+
+        userService.setCurrentUser(request, user2.getUsername());
+        messageController.sendMessage(message2, request);
+        messageController.sendMessage(message3, request);
+        
+        MessageJSON messageJSON2 = messageController.getConversation(getMessage2, request);
+
 
         assertEquals(messageJSON2.getMessages().get(0).getSenderId(), user2.getUserId());
         assertEquals(messageJSON2.getMessages().get(0).getReceiverId(), user3.getUserId());
@@ -116,7 +125,6 @@ public class MessageControllerTest {
         assertEquals(messageJSON2.getMessages().get(1).getReceiverId(), user3.getUserId());
         assertEquals("msg3", messageJSON2.getMessages().get(1).getContent());
 
-        assertEquals(0, messageJSON3.getMessages().size());
 
     }
 
