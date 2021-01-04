@@ -15,11 +15,15 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static junit.framework.TestCase.*;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {PersistenceContext.class})
-@DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = UserRepository.class))
+@DataJpaTest(properties = {"spring.test.database.replace=NONE", "spring.datasource.url=jdbc:postgresql://localhost:5432/postgres"},
+        includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = UserRepository.class))
 public class UserServiceTest {
     @Autowired
     private UserRepository userRepository;
@@ -78,36 +82,48 @@ public class UserServiceTest {
         assertEquals(user3.getUserId(), userService.getUserIdByUserName("user3"));
     }
 
-//    @Test
-//    public void testAddFriend(){
-//        assertTrue(userService.addFriend("user1", "user2"));
-//
-//        // TODO: One way or both-ways friendship?
-//        //  May want to change to assert True or False depending on this question.
-//        assertTrue(userService.addFriend("user2", "user1"));
-//
-//        assertFalse(userService.addFriend("user1", "user2"));
-//        assertTrue(userService.addFriend("user1", "user3"));
-//    }
-//
-//    @Test
-//    public void testRemoveFriend(){
-//        assertTrue(userService.addFriend("user1", "user2"));
-//        assertTrue(userService.addFriend("user1", "user3"));
-//
-//        assertTrue(userService.removeFriend("user1", "user2"));
-//
-//        // TODO: One way or both-ways friendship?
-//        //  May want to change to assert True or False depending on this question.
-//        assertFalse(userService.removeFriend("user2", "user1"));
-//
-//        assertTrue(userService.removeFriend("user1", "user3"));
-//    }
-//
+    @Test
+    public void testAddFriend(){
+        assertTrue(userService.addFriend("user1", "user2"));
+
+        // TODO: One way or both-ways friendship?
+        //  May want to change to assert True or False depending on this question.
+        assertTrue(userService.addFriend("user2", "user1"));
+
+        assertFalse(userService.addFriend("user1", "user2"));
+        assertTrue(userService.addFriend("user1", "user3"));
+    }
+
+    @Test
+    public void testRemoveFriend(){
+        assertTrue(userService.addFriend("user1", "user2"));
+        assertTrue(userService.addFriend("user1", "user3"));
+
+        assertTrue(userService.removeFriend("user1", "user2"));
+
+        // TODO: One way or both-ways friendship?
+        //  May want to change to assert True or False depending on this question.
+        assertFalse(userService.removeFriend("user2", "user1"));
+
+        assertTrue(userService.removeFriend("user1", "user3"));
+    }
+
 //    @Test
 //    public void testDNEFriend(){
 //        // TODO: add later
 //    }
+
+    @Test
+    public void testGetFriendList(){
+        assertTrue(userService.addFriend("user1", "user2"));
+        assertTrue(userService.addFriend("user1", "user3"));
+        List<Integer> actual_friendList = userService.getFriendList("user1");
+        List<Integer> expected_friendList = new ArrayList<>();
+        expected_friendList.add(user2.getUserId());
+        expected_friendList.add(user3.getUserId());
+        assertTrue(actual_friendList.containsAll(expected_friendList));
+        assertTrue(expected_friendList.containsAll(actual_friendList));
+    }
 
     @After
     public void tearDown(){

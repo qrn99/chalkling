@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -128,45 +129,57 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-//    /**
-//     * Add friend into login user's friend list
-//     * @param   username1  String  the username of the friend the user wants to add
-//     * @param   username2  String  target user to add to their friends' list
-//     * @return             boolean  True if add successfully, otherwise false
-//     */
-//    // TODO: Fix later, Should it be username or userID?
-//    @Override
-//    public boolean addFriend(String username1, String username2){
-//        UserEntity userEntity1 = getUserByUsername(username1);
-//        UserEntity userEntity2 = getUserByUsername(username2);
-//        if (userEntity1 == null || userEntity2 == null) return false;
-//        else if (userEntity1.isFriend(userEntity2.getUserId())) return false; // already friend
-//        else {
-//            userEntity1.addFriend(userEntity2.getUserId());
-//            user_repository.save(userEntity1);
-//            return true;
-//        }
-//    }
-//
-//    /**
-//     * Remove friend from the login user's friend list
-//     * @param   username1  String  the username of the friend the user wants to remove
-//     * @param   username2  String  target user to remove from their friends' list
-//     * @return             boolean  True if remove successfully, otherwise false
-//     */
-//    // TODO: Should it be username or userID?
-//    @Override
-//    public boolean removeFriend(String username1, String username2){
-//        UserEntity userEntity1 = getUserByUsername(username1);
-//        UserEntity userEntity2 = getUserByUsername(username2);
-//        if (userEntity1 == null || userEntity2 == null) return false;
-//        else if (!userEntity1.isFriend(userEntity2.getUserId())) return false; // already not friend
-//        else {
-//            userEntity1.removeFriend(userEntity2.getUserId());
-//            user_repository.save(userEntity1);
-//            return true;
-//        }
-//    }
+    /**
+     * Return the friendList for a user
+     * @param username  String          the username of the user
+     * @return          List<Integer>   the list of friends id
+     */
+    @Override
+    public List<Integer> getFriendList(String username){
+        UserEntity user = getUserByUsername(username);
+        if (user == null) return new ArrayList<>();
+        else return user.getFriendList();
+    }
+
+    /**
+     * Add friend into login user's friend list
+     * @param   username1  String  the username of the friend the user wants to add
+     * @param   username2  String  target user to add to their friends' list
+     * @return             boolean  True if add successfully, otherwise false
+     */
+    // TODO: Fix later, Should it be username or userID?
+    @Override
+    public boolean addFriend(String username1, String username2){
+        UserEntity userEntity1 = getUserByUsername(username1);
+        UserEntity userEntity2 = getUserByUsername(username2);
+        if (userEntity1 == null || userEntity2 == null) return false;
+        else if (userEntity1.isFriend(userEntity2.getUserId())) return false; // already friend
+        else {
+            userEntity1.addFriend(userEntity2.getUserId());
+            user_repository.save(userEntity1);
+            return true;
+        }
+    }
+
+    /**
+     * Remove friend from the login user's friend list
+     * @param   username1  String  the username of the friend the user wants to remove
+     * @param   username2  String  target user to remove from their friends' list
+     * @return             boolean  True if remove successfully, otherwise false
+     */
+    // TODO: Should it be username or userID?
+    @Override
+    public boolean removeFriend(String username1, String username2){
+        UserEntity userEntity1 = getUserByUsername(username1);
+        UserEntity userEntity2 = getUserByUsername(username2);
+        if (userEntity1 == null || userEntity2 == null) return false;
+        else if (!userEntity1.isFriend(userEntity2.getUserId())) return false; // already not friend
+        else {
+            userEntity1.removeFriend(userEntity2.getUserId());
+            user_repository.save(userEntity1);
+            return true;
+        }
+    }
 
     /*
     Helper function to find the user in the system

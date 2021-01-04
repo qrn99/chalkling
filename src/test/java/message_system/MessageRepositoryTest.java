@@ -4,6 +4,7 @@ import com.chalkling.config.PersistenceContext;
 import com.chalkling.message_system.MessageEntity;
 import com.chalkling.message_system.MessageRepository;
 import com.chalkling.message_system.MessageType;
+import com.chalkling.user_system.UserRepository;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,9 @@ import static junit.framework.TestCase.*;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {PersistenceContext.class})
-@DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = MessageRepository.class))
+@DataJpaTest(properties = {"spring.test.database.replace=NONE", "spring.datasource.url=jdbc:postgresql://localhost:5432/postgres"},
+        includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = MessageRepository.class))
+
 public class MessageRepositoryTest {
     @Autowired private MessageRepository messageRepository;
 
