@@ -31,7 +31,7 @@ public class MessageController {
         int senderId = userService.getUserIdByUserName(senderName);
         int receiverId = userService.getUserIdByUserName(receiverName);
         List<MessageEntity> messages = messageService.findConversation(senderId, receiverId, getMessageJSON.getMessageType());
-        return new MessageJSON(messages);
+        return new MessageJSON(messages, senderName, receiverName);
     }
 
 
