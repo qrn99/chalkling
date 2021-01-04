@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -94,9 +93,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int getUserIdByUserName(String username) {
+    public int getUserIdByUsername(String username) {
         if (!userExists(username)) return -1; // user DNE
         else return getUserByUsername(username).getUserId();
+    }
+
+    @Override
+    public String getUsernameByUserId(int userId) {
+        UserEntity user = getUserByUserId(userId);
+        if (getUserByUserId(userId) == null) return "";
+        else return user.getUsername();
     }
 
     @Override

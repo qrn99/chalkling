@@ -68,18 +68,24 @@ public class UserServiceTest {
 
     @Test
     public void testGetUserByUserId(){
-        // user1 should have userId 1, user2 have id=2, etc.
         assertNotNull(userService.getUserByUserId(user1.getUserId()));
         assertNotNull(userService.getUserByUserId(user2.getUserId()));
         assertNotNull(userService.getUserByUserId(user3.getUserId()));
     }
 
     @Test
-    public void testGetUserIdByUserName(){
-        // user1 should have userId 1, user2 have id=2, etc.
-        assertEquals(user1.getUserId(), userService.getUserIdByUserName("user1"));
-        assertEquals(user2.getUserId(), userService.getUserIdByUserName("user2"));
-        assertEquals(user3.getUserId(), userService.getUserIdByUserName("user3"));
+    public void testGetUserIdByUsername(){
+        assertEquals(user1.getUserId(), userService.getUserIdByUsername("user1"));
+        assertEquals(user2.getUserId(), userService.getUserIdByUsername("user2"));
+        assertEquals(user3.getUserId(), userService.getUserIdByUsername("user3"));
+    }
+
+    @Test
+    public void testGetUsernameByUserId(){
+        assertEquals("user1", userService.getUsernameByUserId(user1.getUserId()));
+        assertEquals("user2", userService.getUsernameByUserId(user2.getUserId()));
+        assertEquals("user3", userService.getUsernameByUserId(user3.getUserId()));
+        assertEquals("", userService.getUsernameByUserId(-1));
     }
 
     @Test

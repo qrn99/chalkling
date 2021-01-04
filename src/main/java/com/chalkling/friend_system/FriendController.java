@@ -24,13 +24,12 @@ public class FriendController {
     public GetFriendsJSON getFriends(HttpServletRequest request){
         String username = userService.getCurrentUser(request);
 
-        // TODO: Use username string to get the user's friends.
-        //  This currently gets all users.
-        List<String> userList = new ArrayList<>();
-        for (UserEntity user: userService.getAllUsers()){
-            userList.add(user.getUsername());
+        List<Integer> friendList_id = userService.getFriendList(username);
+        List<String> friendList = new ArrayList<>();
+        for (Integer num: friendList_id){
+            friendList.add(userService.getUsernameByUserId(num));
         }
 
-        return new GetFriendsJSON(userList);
+        return new GetFriendsJSON(friendList);
     }
 }
