@@ -1,9 +1,16 @@
 package com.chalkling.user_system;
 
+import com.vladmihalcea.hibernate.type.array.ListArrayType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "UserEntity")
+@TypeDef(name = "list-array", typeClass = ListArrayType.class)
 public class UserEntity {
         @Id
         @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -19,19 +26,16 @@ public class UserEntity {
         @Column(name = "hash")
         private String hash;
 
-        // TODO: Fix friendList later
-//        @ElementCollection
-////        @CollectionTable(name="userentity_friendlist",
-////                        joinColumns=@JoinColumn(name="userentity_userid", referencedColumnName="userid"))
-////        @Column(name = "FriendList")
-//        private List<Integer> friendList;
+        @Type(type = "list-array")
+        @Column(name = "FriendList", columnDefinition = "integer[]")
+        private List<Integer> friendList;
 
         public UserEntity() {}
         public UserEntity(String username, String salt, String hash) {
                 this.username = username;
                 this.salt = salt;
                 this.hash = hash;
-//                this.friendList = new ArrayList<>();
+                this.friendList = new ArrayList<>();
         }
 
         /**
@@ -91,36 +95,36 @@ public class UserEntity {
         }
 
 
-//        /**
-//         * Get frendList of current user
-//         * @return friend list as list of integer
-//         */
-//        public List<Integer> getFriendList() {
-//                return friendList;
-//        }
-//
-//        /**
-//         * Add friend to friendList of current user
-//         */
-//        public void addFriend(int friendID) {
-//                this.friendList.add(friendID);
-//        }
-//
-//        /**
-//         * Remove friend to friendList of current user
-//         */
-//        public void removeFriend(int friendID) {
-//                if (this.isFriend(friendID)){
-//                        this.friendList.remove((Integer) friendID);
-//                }
-//        }
-//
-//        /**
-//         * Check if given user is a friend of current user
-//         * @param friendID ID of another user
-//         * @return true if given user is a friend of current user
-//         */
-//        public boolean isFriend(int friendID) {
-//                return friendList.contains(friendID);
-//        }
+        /**
+         * Get friendList of current user
+         * @return friend list as list of integer
+         */
+        public List<Integer> getFriendList() {
+                return friendList;
+        }
+
+        /**
+         * Add friend to friendList of current user
+         */
+        public void addFriend(int friendID) {
+                this.friendList.add(friendID);
+        }
+
+        /**
+         * Remove friend to friendList of current user
+         */
+        public void removeFriend(int friendID) {
+                if (this.isFriend(friendID)){
+                        this.friendList.remove((Integer) friendID);
+                }
+        }
+
+        /**
+         * Check if given user is a friend of current user
+         * @param friendID ID of another user
+         * @return true if given user is a friend of current user
+         */
+        public boolean isFriend(int friendID) {
+                return friendList.contains(friendID);
+        }
 }

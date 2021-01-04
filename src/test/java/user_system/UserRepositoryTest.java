@@ -13,6 +13,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,8 @@ import static junit.framework.TestCase.*;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {PersistenceContext.class})
-@DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = UserRepository.class))
+@DataJpaTest(properties = {"spring.test.database.replace=NONE", "spring.datasource.url=jdbc:postgresql://localhost:5432/postgres"},
+            includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = UserRepository.class))
 public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
@@ -71,10 +73,10 @@ public class UserRepositoryTest {
         Optional<UserEntity> DNE_user = userRepository.findByUsername("DNE");
         assertFalse(DNE_user.isPresent());
     }
-//    // TODO: Fix later
-//    @Test
-//    public void testFriendList(){
-//        UserEntity userEntity1 = userRepository.findByUsername("user1").get();
-//        assertEquals(new ArrayList<>(), userEntity1.getFriendList());
-//    }
+
+    @Test
+    public void testFriendList(){
+        UserEntity userEntity1 = userRepository.findByUsername("user1").get();
+        assertEquals(new ArrayList<>(), userEntity1.getFriendList());
+    }
 }

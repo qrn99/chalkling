@@ -36,10 +36,10 @@ public interface UserService {
      */
     String getCurrentUser(HttpServletRequest request);
 
-//    // TODO: Should it be username or userID?
-//    boolean addFriend(String username1, String username2);
-//
-//    // TODO: Should it be username or userID?
-//    boolean removeFriend(String username1, String username2);
+    // TODO: Should it be username or userID?
+    boolean addFriend(String username1, String username2);
+
+    // TODO: Should it be username or userID?
+    boolean removeFriend(String username1, String username2);
 
 }

@@ -23,7 +23,8 @@ import static junit.framework.TestCase.assertEquals;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {PersistenceContext.class})
-@DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = {MessageRepository.class, UserRepository.class} ))
+@DataJpaTest(properties = {"spring.test.database.replace=NONE", "spring.datasource.url=jdbc:postgresql://localhost:5432/postgres"},
+        includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = {MessageRepository.class, UserRepository.class}))
 public class MessageControllerTest {
 
     private MessageController messageController;

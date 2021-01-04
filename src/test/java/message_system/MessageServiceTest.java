@@ -19,7 +19,8 @@ import static junit.framework.TestCase.*;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {PersistenceContext.class})
-@DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = MessageRepository.class))
+@DataJpaTest(properties = {"spring.test.database.replace=NONE", "spring.datasource.url=jdbc:postgresql://localhost:5432/postgres"},
+        includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = MessageRepository.class))
 public class MessageServiceTest {
     @Autowired private MessageRepository messageRepository;
 
