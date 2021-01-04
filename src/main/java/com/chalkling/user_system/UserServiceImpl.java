@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -126,6 +127,18 @@ public class UserServiceImpl implements UserService {
             return (String) request.getSession(false).getAttribute("CHALKLING_USERNAME");
         }
         return null;
+    }
+
+    /**
+     * Return the friendList for a user
+     * @param username  String          the username of the user
+     * @return          List<Integer>   the list of friends id
+     */
+    @Override
+    public List<Integer> getFriendList(String username){
+        UserEntity user = getUserByUsername(username);
+        if (user == null) return new ArrayList<>();
+        else return user.getFriendList();
     }
 
     /**

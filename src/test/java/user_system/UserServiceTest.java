@@ -15,6 +15,9 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static junit.framework.TestCase.*;
 
 @RunWith(SpringRunner.class)
@@ -109,6 +112,18 @@ public class UserServiceTest {
 //    public void testDNEFriend(){
 //        // TODO: add later
 //    }
+
+    @Test
+    public void testGetFriendList(){
+        assertTrue(userService.addFriend("user1", "user2"));
+        assertTrue(userService.addFriend("user1", "user3"));
+        List<Integer> actual_friendList = userService.getFriendList("user1");
+        List<Integer> expected_friendList = new ArrayList<>();
+        expected_friendList.add(user2.getUserId());
+        expected_friendList.add(user3.getUserId());
+        assertTrue(actual_friendList.containsAll(expected_friendList));
+        assertTrue(expected_friendList.containsAll(actual_friendList));
+    }
 
     @After
     public void tearDown(){
