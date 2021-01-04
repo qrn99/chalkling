@@ -1,8 +1,6 @@
-package teamchalkling.chalkling.jpa.user;
+package com.chalkling.user_system;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "UserEntity")

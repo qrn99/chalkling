@@ -1,4 +1,4 @@
-package teamchalkling.chalkling.jpa;
+package com.chalkling.jpa;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 

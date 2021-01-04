@@ -1,8 +1,10 @@
-package teamchalkling.chalkling.jpa.user;
+package com.chalkling.user_system;
 
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,28 +16,6 @@ public class UserServiceImpl implements UserService {
     @Inject
     public UserServiceImpl(UserRepository userRepository) {
         this.user_repository = userRepository;
-    }
-
-    /**
-     * Sets the current user logged in
-     * @param userName  String  the username of the user
-     */
-    @Override
-    public void setCurrentUser(String userName){
-        currentUserEntity = getUserByUsername(userName);
-    }
-
-    /**
-     * Gets the current user's ID, that is logged in
-     * @return UserEntity the UserEntity that currently logged in
-     */
-    // TODO: Return user?
-    @Override
-    public UserEntity getCurrentUser(){
-        if (currentUserEntity != null){
-            return currentUserEntity;
-        }
-        return null;
     }
 
     /**
@@ -88,6 +68,7 @@ public class UserServiceImpl implements UserService {
      * @param username the username of user account
      * @return String salt
      */
+    @Override
     public String getUserSalt(String username) {
         if (userExists(username)) {
             return getUserByUsername(username).getSalt();
@@ -102,12 +83,49 @@ public class UserServiceImpl implements UserService {
      * @param hash String hash input for user account
      * @return True or False whether the username and the password matches an account in the list of user accounts
      */
+    @Override
     public boolean canLogin(String username, String salt, String hash) {
         if (!userExists(username)) return false;
         else {
             UserEntity user = getUserByUsername(username);
             return (salt.equals(user.getSalt()) && hash.equals(user.getHash()));
         }
+    }
+
+    @Override
+    public int getUserIdByUserName(String username) {
+        if (!userExists(username)) return -1; // user DNE
+        else return getUserByUsername(username).getUserId();
+    }
+
+    @Override
+    public UserEntity getUserByUserId(int userId) {
+        Optional<UserEntity> temp = user_repository.findById(userId);
+        return temp.orElse(null);
+    }
+
+    // TODO: Properly implement
+    // TODO: Use JWT for logged in sessions.
+    @Override
+    public void setCurrentUser(HttpServletRequest request, String username){
+        if (request.getSession(false) != null) {
+            request.getSession(false).setAttribute("CHALKLING_USERNAME", username);
+        }
+        request.getSession(true).setAttribute("CHALKLING_USERNAME", username);
+    }
+
+    /**
+     * Returns username.
+     * @param request The client's browser request.
+     * @return username if valid session. Null otherwise.
+     */
+    // TODO: Use JWT?
+    @Override
+    public String getCurrentUser(HttpServletRequest request){
+        if (request.getSession(false) != null) {
+            return (String) request.getSession(false).getAttribute("CHALKLING_USERNAME");
+        }
+        return null;
     }
 
 //    /**
