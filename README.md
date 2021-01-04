@@ -8,10 +8,11 @@
 
 **Local PostgreSQL Setup**
 1. Use brew to install PostgreSQL in the terminal: `brew install postgresql`
-2. Once it is installed, run the command: `brew services start postgresql`
+2. Once it is installed, enter the command: `brew services start postgresql`
 3. Go to Intellij Database, add a new PostgreSQL Datasource by clicking the `+` sign, it should automatically add the 
 same localhost for you. Click `Test Connection` to ensure it is working.
-4. You are ready to go :)
+4. You must have the PostgreSQL running in the back for test cases to run. To stop it, 
+enter the command: `brew services stop postgresql`
 
 **Testing Setup:**
 We are using local PostgreSQL database for testing, ensure you have followed the previous setup.
