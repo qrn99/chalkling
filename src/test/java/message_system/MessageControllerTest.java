@@ -106,23 +106,23 @@ public class MessageControllerTest {
 
 
         MessageJSON messageJSON1 = messageController.getConversation(getMessage1, request);
-        assertEquals(messageJSON1.getMessages().get(0).getSenderId(), user1.getUserId());
-        assertEquals(messageJSON1.getMessages().get(0).getReceiverId(), user2.getUserId());
+        assertEquals(messageJSON1.getMessages().get(0).getSenderName(), user1.getUsername());
+        assertEquals(messageJSON1.getMessages().get(0).getReceiverName(), user2.getUsername());
         assertEquals("msg1", messageJSON1.getMessages().get(0).getContent());
 
         userService.setCurrentUser(request, user2.getUsername());
         messageController.sendMessage(message2, request);
         messageController.sendMessage(message3, request);
-        
+
         MessageJSON messageJSON2 = messageController.getConversation(getMessage2, request);
 
 
-        assertEquals(messageJSON2.getMessages().get(0).getSenderId(), user2.getUserId());
-        assertEquals(messageJSON2.getMessages().get(0).getReceiverId(), user3.getUserId());
+        assertEquals(messageJSON2.getMessages().get(0).getSenderName(), user2.getUsername());
+        assertEquals(messageJSON2.getMessages().get(0).getReceiverName(), user3.getUsername());
         assertEquals("msg2", messageJSON2.getMessages().get(0).getContent());
 
-        assertEquals(messageJSON2.getMessages().get(1).getSenderId(), user2.getUserId());
-        assertEquals(messageJSON2.getMessages().get(1).getReceiverId(), user3.getUserId());
+        assertEquals(messageJSON2.getMessages().get(1).getSenderName(), user2.getUsername());
+        assertEquals(messageJSON2.getMessages().get(1).getReceiverName(), user3.getUsername());
         assertEquals("msg3", messageJSON2.getMessages().get(1).getContent());
 
 
