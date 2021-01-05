@@ -1,6 +1,5 @@
 package com.chalkling.friend_system;
 
-import com.chalkling.message_system.AddMessageJSON;
 import com.chalkling.user_system.UserService;
 import org.springframework.web.bind.annotation.*;
 
