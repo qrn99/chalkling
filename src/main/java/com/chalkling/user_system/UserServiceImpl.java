@@ -153,16 +153,20 @@ public class UserServiceImpl implements UserService {
      * @param   username2  String  target user to add to their friends' list
      * @return             boolean  True if add successfully, otherwise false
      */
-    // TODO: Fix later, Should it be username or userID?
+    // TODO: Should it be username or userID?
     @Override
     public boolean addFriend(String username1, String username2){
         UserEntity userEntity1 = getUserByUsername(username1);
         UserEntity userEntity2 = getUserByUsername(username2);
         if (userEntity1 == null || userEntity2 == null) return false;
-        else if (userEntity1.isFriend(userEntity2.getUserId())) return false; // already friend
+        // friends already
+        else if (userEntity1.isFriend(userEntity2.getUserId())
+                && userEntity2.isFriend(userEntity1.getUserId())) return false;
         else {
             userEntity1.addFriend(userEntity2.getUserId());
+            userEntity2.addFriend(userEntity1.getUserId());
             user_repository.save(userEntity1);
+            user_repository.save(userEntity2);
             return true;
         }
     }
@@ -179,10 +183,14 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity1 = getUserByUsername(username1);
         UserEntity userEntity2 = getUserByUsername(username2);
         if (userEntity1 == null || userEntity2 == null) return false;
-        else if (!userEntity1.isFriend(userEntity2.getUserId())) return false; // already not friend
+        // not friends already
+        else if (!userEntity1.isFriend(userEntity2.getUserId())
+                && !userEntity2.isFriend(userEntity1.getUserId())) return false;
         else {
             userEntity1.removeFriend(userEntity2.getUserId());
+            userEntity2.removeFriend(userEntity1.getUserId());
             user_repository.save(userEntity1);
+            user_repository.save(userEntity2);
             return true;
         }
     }

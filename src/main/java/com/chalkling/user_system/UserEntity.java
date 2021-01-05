@@ -105,14 +105,20 @@ public class UserEntity {
 
         /**
          * Add friend to friendList of current user
+         * @param friendID the userId of the friend user
          */
+        // TODO: extract the logic to service?
         public void addFriend(int friendID) {
-                this.friendList.add(friendID);
+                if (!this.isFriend(friendID)){
+                        this.friendList.add(friendID);
+                }
         }
 
         /**
          * Remove friend to friendList of current user
+         * @param friendID the userId of the friend user
          */
+        // TODO: extract the logic to service?
         public void removeFriend(int friendID) {
                 if (this.isFriend(friendID)){
                         this.friendList.remove((Integer) friendID);
