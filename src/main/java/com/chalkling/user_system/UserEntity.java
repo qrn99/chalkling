@@ -102,35 +102,4 @@ public class UserEntity {
         public List<Integer> getFriendList() {
                 return friendList;
         }
-
-        /**
-         * Add friend to friendList of current user
-         * @param friendID the userId of the friend user
-         */
-        // TODO: extract the logic to service?
-        public void addFriend(int friendID) {
-                if (!this.isFriend(friendID)){
-                        this.friendList.add(friendID);
-                }
-        }
-
-        /**
-         * Remove friend to friendList of current user
-         * @param friendID the userId of the friend user
-         */
-        // TODO: extract the logic to service?
-        public void removeFriend(int friendID) {
-                if (this.isFriend(friendID)){
-                        this.friendList.remove((Integer) friendID);
-                }
-        }
-
-        /**
-         * Check if given user is a friend of current user
-         * @param friendID ID of another user
-         * @return true if given user is a friend of current user
-         */
-        public boolean isFriend(int friendID) {
-                return friendList.contains(friendID);
-        }
 }

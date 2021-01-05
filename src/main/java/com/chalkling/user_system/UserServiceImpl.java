@@ -160,11 +160,11 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity2 = getUserByUsername(username2);
         if (userEntity1 == null || userEntity2 == null) return false;
         // friends already
-        else if (userEntity1.isFriend(userEntity2.getUserId())
-                && userEntity2.isFriend(userEntity1.getUserId())) return false;
+        else if (this.isFriend(userEntity1, userEntity2.getUserId())
+                && this.isFriend(userEntity2, userEntity1.getUserId())) return false;
         else {
-            userEntity1.addFriend(userEntity2.getUserId());
-            userEntity2.addFriend(userEntity1.getUserId());
+            this.addFriendToUser(userEntity1, userEntity2.getUserId());
+            this.addFriendToUser(userEntity2, userEntity1.getUserId());
             user_repository.save(userEntity1);
             user_repository.save(userEntity2);
             return true;
@@ -184,23 +184,58 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity2 = getUserByUsername(username2);
         if (userEntity1 == null || userEntity2 == null) return false;
         // not friends already
-        else if (!userEntity1.isFriend(userEntity2.getUserId())
-                && !userEntity2.isFriend(userEntity1.getUserId())) return false;
+        else if (!this.isFriend(userEntity1, userEntity2.getUserId())
+                && !this.isFriend(userEntity2, userEntity1.getUserId())) return false;
         else {
-            userEntity1.removeFriend(userEntity2.getUserId());
-            userEntity2.removeFriend(userEntity1.getUserId());
+            this.removeFriendToUser(userEntity1, userEntity2.getUserId());
+            this.removeFriendToUser(userEntity2, userEntity1.getUserId());
             user_repository.save(userEntity1);
             user_repository.save(userEntity2);
             return true;
         }
     }
 
+
+    // Helper functions
     /*
-    Helper function to find the user in the system
+     * Get the user in the system by username
+     * @param username  String  the username of the user
      */
     private UserEntity getUserByUsername(String username){
         Optional<UserEntity> temp = user_repository.findByUsername(username);
         return temp.orElse(null);
+    }
+
+    /*
+     * Add friend to the friendList of the user
+     * @param user     UserEntity   the user
+     * @param friendID int          the userId of the friend user
+     */
+    private void addFriendToUser(UserEntity user, int friendID) {
+        if (!isFriend(user, friendID)){
+            user.getFriendList().add(friendID);
+        }
+    }
+
+    /*
+     * Remove friend from the friendList of the user
+     * @param user     UserEntity   the user
+     * @param friendID int          the userId of the friend user
+     */
+    private void removeFriendToUser(UserEntity user, int friendID) {
+        if (isFriend(user, friendID)){
+            user.getFriendList().remove((Integer) friendID);
+        }
+    }
+
+    /*
+     * Check if given user is a friend of the user
+     * @param user     UserEntity   the user
+     * @param friendID int          ID of another user
+     * @return true if given friendId is already a friend of the user
+     */
+    private boolean isFriend(UserEntity user, int friendID) {
+        return user.getFriendList().contains(friendID);
     }
 
 }
