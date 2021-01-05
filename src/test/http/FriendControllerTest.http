@@ -44,7 +44,20 @@ GET http://localhost:5000/api/friends
 
 ###
 
-PATCH http://localhost:5000/api/friends
+PATCH http://localhost:5000/api/addFriend
+Content-Type: application/json
+
+{
+  "friend": "user3"
+}
+
+###
+
+GET http://localhost:5000/api/friends
+
+###
+
+PATCH http://localhost:5000/api/removeFriend
 Content-Type: application/json
 
 {

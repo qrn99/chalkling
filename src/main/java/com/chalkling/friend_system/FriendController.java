@@ -33,7 +33,7 @@ public class FriendController {
     }
 
 
-    @PatchMapping(value = "/api/friends", consumes = "application/json")
+    @PatchMapping(value = "/api/addFriend", consumes = "application/json")
     public void addFriend(@RequestBody ChangeFriendJSON changeFriendJSON, HttpServletRequest request) {
         String username = userService.getCurrentUser(request);
         String friendName = changeFriendJSON.getFriend();
@@ -42,7 +42,7 @@ public class FriendController {
     }
 
 
-    @PatchMapping(value = "/api/friends", consumes = "application/json", produces = "application/json")
+    @PatchMapping(value = "/api/removeFriend", consumes = "application/json", produces = "application/json")
     public void removeFriend(@RequestBody ChangeFriendJSON changeFriendJSON, HttpServletRequest request) {
         String username = userService.getCurrentUser(request);
         String friendName = changeFriendJSON.getFriend();
