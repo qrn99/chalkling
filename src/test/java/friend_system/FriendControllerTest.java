@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -64,6 +65,35 @@ public class FriendControllerTest {
         GetFriendsJSON getFriendsJSON = new GetFriendsJSON(friendList);
 
         assertEquals(friendList, friendController.getFriends(request).getFriendsList());
+    }
+
+    @Test
+    public void testAddFriend(){
+        userService.setCurrentUser(request, user1.getUsername());
+        ChangeFriendJSON changeFriendJSON = new ChangeFriendJSON("user2");
+        friendController.addFriend(changeFriendJSON, request);
+
+        List<String> friendList1 = new ArrayList<>(Collections.singletonList("user2"));
+        List<Integer> friendList_id = userService.getFriendList(user1.getUsername());
+        List<String> friendList = new ArrayList<>();
+
+        for (Integer num: friendList_id){
+            friendList.add(userService.getUsernameByUserId(num));
+        }
+
+        assertEquals(friendList1, friendList);
+    }
+
+    @Test
+    public void testRemoveFriend(){
+        userService.setCurrentUser(request, user1.getUsername());
+        ChangeFriendJSON changeFriendJSON = new ChangeFriendJSON("user2");
+        friendController.addFriend(changeFriendJSON, request);
+        friendController.removeFriend(changeFriendJSON, request);
+
+        List<Integer> friendList_id = userService.getFriendList(user1.getUsername());
+
+        assertEquals(new ArrayList<>(), friendList_id);
     }
 
 }

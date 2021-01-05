@@ -1,9 +1,8 @@
 package com.chalkling.friend_system;
 
-import com.chalkling.user_system.UserEntity;
+import com.chalkling.message_system.AddMessageJSON;
 import com.chalkling.user_system.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -31,5 +30,22 @@ public class FriendController {
         }
 
         return new GetFriendsJSON(friendList);
+    }
+
+
+    @PatchMapping(value = "/api/friends", consumes = "application/json")
+    public void addFriend(@RequestBody ChangeFriendJSON changeFriendJSON, HttpServletRequest request) {
+        String username = userService.getCurrentUser(request);
+        String friendName = changeFriendJSON.getFriend();
+        userService.addFriend(username, friendName);
+
+    }
+
+
+    @PatchMapping(value = "/api/friends", consumes = "application/json", produces = "application/json")
+    public void removeFriend(@RequestBody ChangeFriendJSON changeFriendJSON, HttpServletRequest request) {
+        String username = userService.getCurrentUser(request);
+        String friendName = changeFriendJSON.getFriend();
+        userService.removeFriend(username, friendName);
     }
 }
