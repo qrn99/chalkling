@@ -2,10 +2,19 @@ package com.chalkling.group_system;
 
 public interface GroupService {
 
-    void addGroup(String username, String groupName);
-    void removeGroup(String username, String groupName);
-    void addGroupMember(String memberName, String groupName);
-    void removeGroupMember(String memberName, String groupName);
+    void addGroup(int hostId, String groupName);
 
-    boolean isGroupMember(String memberName, String groupName);
+    void removeGroup(String groupName);
+
+    boolean addMember(int memberId, String groupName);
+
+    boolean removeMember(int memberId, String groupName);
+
+    boolean groupExists(String groupName);
+
+    GroupEntity getGroupByGroupId(int groupId);
+
+    String getGroupNameByGroupId(int groupId);
+
+    int getGroupIdByGroupName(String groupName);
 }
