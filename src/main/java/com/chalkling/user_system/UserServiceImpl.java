@@ -117,8 +117,9 @@ public class UserServiceImpl implements UserService {
     public void setCurrentUser(HttpServletRequest request, String username){
         if (request.getSession(false) != null) {
             request.getSession(false).setAttribute("CHALKLING_USERNAME", username);
+        } else {
+            request.getSession(true).setAttribute("CHALKLING_USERNAME", username);
         }
-        request.getSession(true).setAttribute("CHALKLING_USERNAME", username);
     }
 
     /**
