@@ -44,4 +44,64 @@ public class GroupServiceTest{
         assertEquals(3, groupRepository.findAll().size());
     }
 
+    @Test
+    public void testRemoveGroup(){
+        groupService.removeGroup("group1");
+        assertEquals(1, groupRepository.findAll().size());
+    }
+
+    @Test
+    public void testAddMember(){
+        List<Integer> expected_member_list1 = new ArrayList<>();
+        assertEquals(expected_member_list1, group1.getMemberList());
+
+        assertTrue(groupService.addMember(2, "group1"));
+        // duplicate adding
+        assertFalse(groupService.addMember(2, "group1"));
+
+        expected_member_list1.add(2);
+        assertEquals(expected_member_list1, group1.getMemberList());
+    }
+
+    @Test
+    public void testRemoveMember(){
+        List<Integer> expected_member_list1 = new ArrayList<>();
+        assertEquals(expected_member_list1, group1.getMemberList());
+        assertTrue(groupService.addMember(2, "group1"));
+        assertTrue(groupService.addMember(-10, "group1"));
+        expected_member_list1.add(2);
+        expected_member_list1.add(-10);
+        assertEquals(expected_member_list1, group1.getMemberList());
+
+        assertTrue(groupService.removeMember(2, "group1"));
+        // duplicate removing
+        assertFalse(groupService.removeMember(2, "group1"));
+        assertTrue(groupService.removeMember(-10, "group1"));
+
+        assertEquals(new ArrayList<>(), group1.getMemberList());
+    }
+
+    @Test
+    public void testGroupExists(){
+        assertTrue(groupService.groupExists("group1"));
+        assertFalse(groupService.groupExists("DNE"));
+    }
+
+    @Test
+    public void testGetGroupByGroupId(){
+        assertEquals(group1, groupService.getGroupByGroupId(group1.getGroupId()));
+        assertNull(groupService.getGroupByGroupId(-1));
+    }
+
+    @Test
+    public void testGetGroupNameByGroupId(){
+        assertEquals(group1.getGroupName(), groupService.getGroupNameByGroupId(group1.getGroupId()));
+        assertEquals("", groupService.getGroupNameByGroupId(-1));
+    }
+
+    @Test
+    public void testGetGroupIdByGroupName(){
+        assertEquals(group1.getGroupId(), groupService.getGroupIdByGroupName(group1.getGroupName()));
+        assertEquals(-1, groupService.getGroupIdByGroupName("DNE"));
+    }
 }
