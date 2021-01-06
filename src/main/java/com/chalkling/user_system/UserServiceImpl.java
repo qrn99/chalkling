@@ -115,11 +115,7 @@ public class UserServiceImpl implements UserService {
     // TODO: Use JWT for logged in sessions.
     @Override
     public void setCurrentUser(HttpServletRequest request, String username){
-        if (request.getSession(false) != null) {
-            request.getSession(false).setAttribute("CHALKLING_USERNAME", username);
-        } else {
-            request.getSession(true).setAttribute("CHALKLING_USERNAME", username);
-        }
+        request.getSession().setAttribute("CHALKLING_USERNAME", username);
     }
 
     /**
