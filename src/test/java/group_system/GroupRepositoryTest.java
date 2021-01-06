@@ -12,7 +12,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Optional;
+import java.util.*;
 
 import static junit.framework.TestCase.*;
 
@@ -30,6 +30,7 @@ public class GroupRepositoryTest {
     @Before
     public void setUp() {
         this.group1 = new GroupEntity(1, "group1");
+        group1.getMemberList().add(2);
         this.group2 = new GroupEntity(2, "group2");
         groupRepository.save(group1);
         groupRepository.save(group2);
@@ -47,4 +48,17 @@ public class GroupRepositoryTest {
         Optional<GroupEntity> DNE_group = groupRepository.findByGroupName("DNE");
         assertFalse(DNE_group.isPresent());
     }
+
+//    @Test
+//    public void testFindGroupsByUserId(){
+//        List<GroupEntity> expected_groups_for_id1 = new ArrayList<>(Collections.singletonList(group1));
+//        List<GroupEntity> findGroups_for_id1 = groupRepository.findGroupsByUserId(1);
+//        assertEquals(expected_groups_for_id1, findGroups_for_id1);
+//
+//        List<GroupEntity> expected_groups_for_id2 = new ArrayList<>(Arrays.asList(group1, group2));
+//        List<GroupEntity> findGroups_for_id2 = groupRepository.findGroupsByUserId(2);
+//        assertTrue(expected_groups_for_id2.containsAll(findGroups_for_id2));
+//        assertTrue(findGroups_for_id2.containsAll(expected_groups_for_id2));
+//        assertEquals(expected_groups_for_id2, findGroups_for_id2);
+//    }
 }

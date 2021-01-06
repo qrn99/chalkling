@@ -1,5 +1,7 @@
 package com.chalkling.group_system;
 
+import java.util.List;
+
 public interface GroupService {
 
     void addGroup(int hostId, String groupName);
@@ -17,4 +19,6 @@ public interface GroupService {
     String getGroupNameByGroupId(int groupId);
 
     int getGroupIdByGroupName(String groupName);
+
+//    List<GroupEntity> findGroups(int userId);
 }
