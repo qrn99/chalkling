@@ -20,5 +20,5 @@ public interface GroupService {
 
     int getGroupIdByGroupName(String groupName);
 
-//    List<GroupEntity> findGroups(int userId);
+    List<GroupEntity> findGroups(int userId);
 }

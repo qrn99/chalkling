@@ -27,8 +27,7 @@ public class GroupEntity {
     @Column(name = "channelIdList", columnDefinition = "integer[]")
     private List<Integer> channelIdList;
 
-    @Type(type = "list-array")
-    @Column(name = "memberList", columnDefinition = "integer[]")
+    @ElementCollection
     private List<Integer> memberList;
 
     public GroupEntity() {}

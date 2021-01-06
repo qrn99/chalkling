@@ -20,8 +20,6 @@ public interface GroupRepository extends BaseRepository<GroupEntity, Integer> {
     @Query("SELECT g FROM GroupEntity g WHERE g.groupName = :groupName")
     Optional<GroupEntity> findByGroupName(@Param("groupName") String groupName);
 
-//    @Query("SELECT u FROM GroupEntity u WHERE (u.hostId = :userId) OR (:userId MEMBER OF u.memberList)")
-//    @Query("SELECT g FROM GroupEntity g WHERE (:userId) MEMBER OF g.memberList")
-//    @Query("SELECT g FROM GroupEntity g WHERE (:userId) IN elements(g.memberList)")
-//    List<GroupEntity> findGroupsByUserId(@Param("userId") int userId);
+    @Query("SELECT g FROM GroupEntity g WHERE (g.hostId = :userId) OR (:userId MEMBER OF g.memberList)")
+    List<GroupEntity> findGroupsByUserId(@Param("userId") int userId);
 }

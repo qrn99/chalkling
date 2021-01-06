@@ -12,9 +12,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static junit.framework.TestCase.*;
 
@@ -103,5 +101,14 @@ public class GroupServiceTest{
     public void testGetGroupIdByGroupName(){
         assertEquals(group1.getGroupId(), groupService.getGroupIdByGroupName(group1.getGroupName()));
         assertEquals(-1, groupService.getGroupIdByGroupName("DNE"));
+    }
+
+    @Test
+    public void testFindGroups(){
+        // add id=2 into group1 memberList
+        group1.getMemberList().add(2);
+        List<GroupEntity> expected_groups_for_id1 = new ArrayList<>(Collections.singletonList(group1));
+        List<GroupEntity> findGroups_for_id1 = groupService.findGroups(1);
+        assertEquals(expected_groups_for_id1, findGroups_for_id1);
     }
 }

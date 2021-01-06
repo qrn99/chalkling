@@ -75,10 +75,10 @@ public class GroupServiceImpl implements GroupService{
         else return group.getGroupId();
     }
 
-//    @Override
-//    public List<GroupEntity> findGroups(int userId) {
-//        return group_repository.findGroupsByUserId(userId);
-//    }
+    @Override
+    public List<GroupEntity> findGroups(int userId) {
+        return group_repository.findGroupsByUserId(userId);
+    }
 
     // Helper Function
 
@@ -94,7 +94,7 @@ public class GroupServiceImpl implements GroupService{
     }
 
     /*
-     * Check if member is in the group
+     * Check if member is in the group given the group name
      */
     private boolean isGroupMember(int memberId, String groupName) {
         GroupEntity group = this.findGroupByGroupName(groupName);
