@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -35,6 +36,8 @@ public class UserServiceTest {
     private UserEntity user2;
     private UserEntity user3;
 
+    private MockHttpServletRequest request;
+
     @Before
     public void setUp(){
         this.userService = new UserServiceImpl(userRepository);
@@ -44,6 +47,9 @@ public class UserServiceTest {
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
+
+        request = new MockHttpServletRequest("POST", "/api/login");
+        request.setContentType("application/json");
     }
 
     @Test
@@ -146,8 +152,11 @@ public class UserServiceTest {
         assertTrue(expected_friendList.containsAll(actual_friendList));
     }
 
-    @After
-    public void tearDown(){
-        userRepository.deleteAll();
+
+    @Test
+    public void testSetCurrentUser_and_GetCurrentUser(){
+        assertNull(userService.getCurrentUser(request));
+        userService.setCurrentUser(request, "user1");
+        assertEquals("user1", userService.getCurrentUser(request));
     }
 }
