@@ -64,7 +64,7 @@ public class FriendControllerTest {
         List<String> friendList = new ArrayList<>(Arrays.asList("user2", "user3"));
         GetFriendsJSON getFriendsJSON = new GetFriendsJSON(friendList);
 
-        assertEquals(friendList, friendController.getFriends(request).getFriendsList());
+        assertEquals(friendList, friendController.getFriends(request).getFriendList());
     }
 
     @Test
