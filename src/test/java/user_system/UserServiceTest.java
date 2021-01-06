@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.*;
@@ -34,6 +36,8 @@ public class UserServiceTest {
     private UserEntity user2;
     private UserEntity user3;
 
+    private MockHttpServletRequest request;
+
     @Before
     public void setUp(){
         this.userService = new UserServiceImpl(userRepository);
@@ -43,6 +47,9 @@ public class UserServiceTest {
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
+
+        request = new MockHttpServletRequest("POST", "/api/login");
+        request.setContentType("application/json");
     }
 
     @Test
@@ -68,30 +75,46 @@ public class UserServiceTest {
 
     @Test
     public void testGetUserByUserId(){
-        // user1 should have userId 1, user2 have id=2, etc.
         assertNotNull(userService.getUserByUserId(user1.getUserId()));
         assertNotNull(userService.getUserByUserId(user2.getUserId()));
         assertNotNull(userService.getUserByUserId(user3.getUserId()));
     }
 
     @Test
-    public void testGetUserIdByUserName(){
-        // user1 should have userId 1, user2 have id=2, etc.
-        assertEquals(user1.getUserId(), userService.getUserIdByUserName("user1"));
-        assertEquals(user2.getUserId(), userService.getUserIdByUserName("user2"));
-        assertEquals(user3.getUserId(), userService.getUserIdByUserName("user3"));
+    public void testGetUserIdByUsername(){
+        assertEquals(user1.getUserId(), userService.getUserIdByUsername("user1"));
+        assertEquals(user2.getUserId(), userService.getUserIdByUsername("user2"));
+        assertEquals(user3.getUserId(), userService.getUserIdByUsername("user3"));
+    }
+
+    @Test
+    public void testGetUsernameByUserId(){
+        assertEquals("user1", userService.getUsernameByUserId(user1.getUserId()));
+        assertEquals("user2", userService.getUsernameByUserId(user2.getUserId()));
+        assertEquals("user3", userService.getUsernameByUserId(user3.getUserId()));
+        assertEquals("", userService.getUsernameByUserId(-1));
     }
 
     @Test
     public void testAddFriend(){
         assertTrue(userService.addFriend("user1", "user2"));
-
-        // TODO: One way or both-ways friendship?
-        //  May want to change to assert True or False depending on this question.
-        assertTrue(userService.addFriend("user2", "user1"));
-
-        assertFalse(userService.addFriend("user1", "user2"));
         assertTrue(userService.addFriend("user1", "user3"));
+
+        // duplicate adding
+        assertFalse(userService.addFriend("user1", "user2"));
+        // Two way friendship
+        assertFalse(userService.addFriend("user2", "user1"));
+
+        // get user1 friend list
+        List<Integer> actual_friendList1 = userService.getFriendList("user1");
+        List<Integer> expected_friendList1 = new ArrayList<>(Arrays.asList(user2.getUserId(), user3.getUserId()));
+        assertEquals(actual_friendList1, expected_friendList1);
+
+        // get user2 friend list
+        List<Integer> actual_friendList2 = userService.getFriendList("user2");
+        List<Integer> expected_friendList2 = new ArrayList<>(Arrays.asList(user1.getUserId()));
+        assertEquals(actual_friendList2, expected_friendList2);
+
     }
 
     @Test
@@ -100,18 +123,22 @@ public class UserServiceTest {
         assertTrue(userService.addFriend("user1", "user3"));
 
         assertTrue(userService.removeFriend("user1", "user2"));
-
-        // TODO: One way or both-ways friendship?
-        //  May want to change to assert True or False depending on this question.
+        // duplicate removing, user2 get user1 friend removed automatically
         assertFalse(userService.removeFriend("user2", "user1"));
 
-        assertTrue(userService.removeFriend("user1", "user3"));
-    }
+        // get user1 friend list
+        List<Integer> actual_friendList1 = userService.getFriendList("user1");
+        List<Integer> expected_friendList1 = new ArrayList<>(Arrays.asList(user3.getUserId()));
+        assertEquals(actual_friendList1, expected_friendList1);
 
-//    @Test
-//    public void testDNEFriend(){
-//        // TODO: add later
-//    }
+        // get user2 friend list
+        List<Integer> actual_friendList2 = userService.getFriendList("user2");
+        assertEquals(new ArrayList<>(), actual_friendList2);
+
+        assertTrue(userService.removeFriend("user1", "user3"));
+        // user3 get user1 friend removed automatically
+        assertFalse(userService.removeFriend("user3", "user1"));
+    }
 
     @Test
     public void testGetFriendList(){
@@ -125,8 +152,11 @@ public class UserServiceTest {
         assertTrue(expected_friendList.containsAll(actual_friendList));
     }
 
-    @After
-    public void tearDown(){
-        userRepository.deleteAll();
+
+    @Test
+    public void testSetCurrentUser_and_GetCurrentUser(){
+        assertNull(userService.getCurrentUser(request));
+        userService.setCurrentUser(request, "user1");
+        assertEquals("user1", userService.getCurrentUser(request));
     }
 }

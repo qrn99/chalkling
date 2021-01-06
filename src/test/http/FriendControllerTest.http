@@ -1,0 +1,89 @@
+POST http://localhost:5000/api/signup
+Content-Type: application/json
+
+{
+  "username": "user1",
+  "password": "pass1"
+}
+
+###
+
+POST http://localhost:5000/api/signup
+Content-Type: application/json
+
+{
+  "username": "user2",
+  "password": "pass2"
+}
+
+###
+
+POST http://localhost:5000/api/signup
+Content-Type: application/json
+
+{
+  "username": "user3",
+  "password": "pass3"
+}
+
+###
+
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+{
+  "username": "user1",
+  "password": "pass1"
+}
+
+###
+GET http://localhost:5000/api/login
+###
+
+GET http://localhost:5000/api/friends
+
+###
+
+PATCH http://localhost:5000/api/addFriend
+Content-Type: application/json
+
+{
+  "friend": "user3"
+}
+
+###
+
+GET http://localhost:5000/api/friends
+
+###
+
+PATCH http://localhost:5000/api/removeFriend
+Content-Type: application/json
+
+{
+  "friend": "user3"
+}
+
+###
+
+GET http://localhost:5000/api/friends
+
+####
+#
+#PATCH http://localhost:5000/api/addFriend
+#Content-Type: application/json
+#
+#{
+#  "friend": "user3"
+#}
+#
+####
+#
+#PATCH http://localhost:5000/api/addFriend
+#Content-Type: application/json
+#
+#{
+#  "friend": "user2"
+#}
+#
+####

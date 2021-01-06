@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -94,9 +93,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int getUserIdByUserName(String username) {
+    public int getUserIdByUsername(String username) {
         if (!userExists(username)) return -1; // user DNE
         else return getUserByUsername(username).getUserId();
+    }
+
+    @Override
+    public String getUsernameByUserId(int userId) {
+        UserEntity user = getUserByUserId(userId);
+        if (getUserByUserId(userId) == null) return "";
+        else return user.getUsername();
     }
 
     @Override
@@ -109,10 +115,7 @@ public class UserServiceImpl implements UserService {
     // TODO: Use JWT for logged in sessions.
     @Override
     public void setCurrentUser(HttpServletRequest request, String username){
-        if (request.getSession(false) != null) {
-            request.getSession(false).setAttribute("CHALKLING_USERNAME", username);
-        }
-        request.getSession(true).setAttribute("CHALKLING_USERNAME", username);
+        request.getSession().setAttribute("CHALKLING_USERNAME", username);
     }
 
     /**
@@ -147,16 +150,20 @@ public class UserServiceImpl implements UserService {
      * @param   username2  String  target user to add to their friends' list
      * @return             boolean  True if add successfully, otherwise false
      */
-    // TODO: Fix later, Should it be username or userID?
+    // TODO: Should it be username or userID?
     @Override
     public boolean addFriend(String username1, String username2){
         UserEntity userEntity1 = getUserByUsername(username1);
         UserEntity userEntity2 = getUserByUsername(username2);
         if (userEntity1 == null || userEntity2 == null) return false;
-        else if (userEntity1.isFriend(userEntity2.getUserId())) return false; // already friend
+        // friends already
+        else if (this.isFriend(userEntity1, userEntity2.getUserId())
+                && this.isFriend(userEntity2, userEntity1.getUserId())) return false;
         else {
-            userEntity1.addFriend(userEntity2.getUserId());
+            this.addFriendToUser(userEntity1, userEntity2.getUserId());
+            this.addFriendToUser(userEntity2, userEntity1.getUserId());
             user_repository.save(userEntity1);
+            user_repository.save(userEntity2);
             return true;
         }
     }
@@ -173,20 +180,59 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity1 = getUserByUsername(username1);
         UserEntity userEntity2 = getUserByUsername(username2);
         if (userEntity1 == null || userEntity2 == null) return false;
-        else if (!userEntity1.isFriend(userEntity2.getUserId())) return false; // already not friend
+        // not friends already
+        else if (!this.isFriend(userEntity1, userEntity2.getUserId())
+                && !this.isFriend(userEntity2, userEntity1.getUserId())) return false;
         else {
-            userEntity1.removeFriend(userEntity2.getUserId());
+            this.removeFriendToUser(userEntity1, userEntity2.getUserId());
+            this.removeFriendToUser(userEntity2, userEntity1.getUserId());
             user_repository.save(userEntity1);
+            user_repository.save(userEntity2);
             return true;
         }
     }
 
+
+    // Helper functions
     /*
-    Helper function to find the user in the system
+     * Get the user in the system by username
+     * @param username  String  the username of the user
      */
     private UserEntity getUserByUsername(String username){
         Optional<UserEntity> temp = user_repository.findByUsername(username);
         return temp.orElse(null);
+    }
+
+    /*
+     * Add friend to the friendList of the user
+     * @param user     UserEntity   the user
+     * @param friendID int          the userId of the friend user
+     */
+    private void addFriendToUser(UserEntity user, int friendID) {
+        if (!isFriend(user, friendID)){
+            user.getFriendList().add(friendID);
+        }
+    }
+
+    /*
+     * Remove friend from the friendList of the user
+     * @param user     UserEntity   the user
+     * @param friendID int          the userId of the friend user
+     */
+    private void removeFriendToUser(UserEntity user, int friendID) {
+        if (isFriend(user, friendID)){
+            user.getFriendList().remove((Integer) friendID);
+        }
+    }
+
+    /*
+     * Check if given user is a friend of the user
+     * @param user     UserEntity   the user
+     * @param friendID int          ID of another user
+     * @return true if given friendId is already a friend of the user
+     */
+    private boolean isFriend(UserEntity user, int friendID) {
+        return user.getFriendList().contains(friendID);
     }
 
 }

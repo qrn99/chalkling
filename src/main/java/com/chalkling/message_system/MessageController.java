@@ -28,8 +28,8 @@ public class MessageController {
         if (!userService.userExists(senderName) || !userService.userExists(receiverName)) {
             return null;
         }
-        int senderId = userService.getUserIdByUserName(senderName);
-        int receiverId = userService.getUserIdByUserName(receiverName);
+        int senderId = userService.getUserIdByUsername(senderName);
+        int receiverId = userService.getUserIdByUsername(receiverName);
         List<MessageEntity> messages = messageService.findConversation(senderId, receiverId, getMessageJSON.getMessageType());
         return new MessageJSON(messages, senderName, receiverName);
     }
@@ -42,8 +42,8 @@ public class MessageController {
         if (!userService.userExists(senderName) || !userService.userExists(receiverName)) {
             return;
         }
-        int senderId = userService.getUserIdByUserName(senderName);
-        int receiverId = userService.getUserIdByUserName(receiverName);
+        int senderId = userService.getUserIdByUsername(senderName);
+        int receiverId = userService.getUserIdByUsername(receiverName);
         messageService.addMessage(addMessageJSON.getMessageType(), senderId, receiverId, addMessageJSON.getContent());
 
     }

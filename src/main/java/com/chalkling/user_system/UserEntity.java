@@ -102,29 +102,4 @@ public class UserEntity {
         public List<Integer> getFriendList() {
                 return friendList;
         }
-
-        /**
-         * Add friend to friendList of current user
-         */
-        public void addFriend(int friendID) {
-                this.friendList.add(friendID);
-        }
-
-        /**
-         * Remove friend to friendList of current user
-         */
-        public void removeFriend(int friendID) {
-                if (this.isFriend(friendID)){
-                        this.friendList.remove((Integer) friendID);
-                }
-        }
-
-        /**
-         * Check if given user is a friend of current user
-         * @param friendID ID of another user
-         * @return true if given user is a friend of current user
-         */
-        public boolean isFriend(int friendID) {
-                return friendList.contains(friendID);
-        }
 }

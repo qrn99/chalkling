@@ -1,13 +1,12 @@
 package com.chalkling.friend_system;
 
-import com.chalkling.user_system.UserEntity;
 import com.chalkling.user_system.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -24,13 +23,31 @@ public class FriendController {
     public GetFriendsJSON getFriends(HttpServletRequest request){
         String username = userService.getCurrentUser(request);
 
-        // TODO: Use username string to get the user's friends.
-        //  This currently gets all users.
-        List<String> userList = new ArrayList<>();
-        for (UserEntity user: userService.getAllUsers()){
-            userList.add(user.getUsername());
+        if (username == null) return new GetFriendsJSON(Arrays.asList("username is null", "you aren't login", "not bc you dont have friends"));
+
+        List<Integer> friendList_id = userService.getFriendList(username);
+        List<String> friendList = new ArrayList<>();
+        for (Integer num: friendList_id){
+            friendList.add(userService.getUsernameByUserId(num));
         }
 
-        return new GetFriendsJSON(userList);
+        return new GetFriendsJSON(friendList);
+    }
+
+
+    @PatchMapping(value = "/api/addFriend", consumes = "application/json")
+    public void addFriend(@RequestBody ChangeFriendJSON changeFriendJSON, HttpServletRequest request) {
+        String username = userService.getCurrentUser(request);
+        String friendName = changeFriendJSON.getFriend();
+        userService.addFriend(username, friendName);
+
+    }
+
+
+    @PatchMapping(value = "/api/removeFriend", consumes = "application/json", produces = "application/json")
+    public void removeFriend(@RequestBody ChangeFriendJSON changeFriendJSON, HttpServletRequest request) {
+        String username = userService.getCurrentUser(request);
+        String friendName = changeFriendJSON.getFriend();
+        userService.removeFriend(username, friendName);
     }
 }

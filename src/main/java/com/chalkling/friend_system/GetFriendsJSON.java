@@ -3,14 +3,14 @@ package com.chalkling.friend_system;
 import java.util.List;
 
 public class GetFriendsJSON {
-    private List<String> friendsList;
-    public GetFriendsJSON(List<String> friendsList){
-        this.friendsList = friendsList;
+    private List<String> friendList;
+    public GetFriendsJSON(List<String> friendList){
+        this.friendList = friendList;
     }
-    public List<String> getFriendsList() {
-        return friendsList;
+    public List<String> getFriendList() {
+        return friendList;
     }
-    public void setFriendsList(List<String> friendsList) {
-        this.friendsList = friendsList;
+    public void setFriendList(List<String> friendList) {
+        this.friendList = friendList;
     }
 }

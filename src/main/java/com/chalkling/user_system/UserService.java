@@ -1,7 +1,6 @@
 package com.chalkling.user_system;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface UserService {
@@ -23,7 +22,9 @@ public interface UserService {
 
     boolean canLogin(String username, String salt, String hash);
 
-    int getUserIdByUserName(String username);
+    int getUserIdByUsername(String username);
+
+    String getUsernameByUserId(int userId);
 
     UserEntity getUserByUserId(int userId);
 
