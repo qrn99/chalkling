@@ -62,9 +62,18 @@ public class FriendControllerTest {
         userService.addFriend("user1", "user3");
 
         List<String> friendList = new ArrayList<>(Arrays.asList("user2", "user3"));
-        GetFriendsJSON getFriendsJSON = new GetFriendsJSON(friendList);
 
         assertEquals(friendList, friendController.getFriends(request).getFriendList());
+    }
+
+    @Test
+    public void testGetFriendsImproperLogin(){
+        // no one is login with request
+        // set up friends
+        userService.addFriend("user1", "user2");
+        userService.addFriend("user1", "user3");
+
+        assertEquals(Arrays.asList("username is null", "you aren't login", "not bc you dont have friends"), friendController.getFriends(request).getFriendList());
     }
 
     @Test
